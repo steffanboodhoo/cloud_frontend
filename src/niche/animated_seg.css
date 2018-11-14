@@ -1,0 +1,8 @@
+.anime-container {
+   background-image: url("http://iliketowastemytime.com/sites/default/files/outer-space-hd-wallpaper.jpg");
+   height: 100%;
+   max-width: 100%;
+   background-size: cover;
+   background-position: center center;
+   z-index: 1;
+}
