@@ -9,6 +9,7 @@
     "immutable": "^3.8.2",
     "js-cookie": "^2.2.0",
     "jspdf": "^1.4.1",
+    "package.json": "^2.0.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-redux": "^5.0.7",
