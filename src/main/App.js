@@ -5,12 +5,12 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as UserActions from '../ducks/User/Actions';
 
-import Register from '../_register/Register.js';
+// import Register from '../_register/Register.js';
 import CustomerHome from '../_cust/Home.js';
 import CustomerLogin from '../_cust/Login.js';
 
-import AdminHome from '../_admin/Home.js';
-import AdminLogin from '../_admin/Login.js';
+// import AdminHome from '../_admin/Home.js';
+// import AdminLogin from '../_admin/Login.js';
 
 const PrivateRoute = ({component: Component, authenticated, ...props}) => {
 	return (
@@ -42,27 +42,27 @@ class App extends Component{
 		return(
 			<BrowserRouter>
 				<div>
-					<Route exact path='/' render = {()=> <Redirect to="/home"/>}/>				  					
-					<PrivateRoute authenticated={this.props.user.getIn(['authenticated']) }  path="/home" component={ CustomerHome } />
-					<PublicRoute authenticated={this.props.user.getIn(['authenticated']) }  path="/login" component={ CustomerLogin } />
-
-					<Route path="/adminhome" render={() => {
-						return (this.props.user.getIn(['authenticated'])==true)?(<AdminHome/>):(<Redirect to='/adminlogin'/>);
-					}}/>
-					<Route path="/adminlogin" render={() =>{
-						return (this.props.user.getIn(['authenticated'])==false)?(<AdminLogin/>):(<Redirect to='/adminhome'/>);
-					}}/>
-
-					
-
-					<Route path='/register' component={Register}/>
+					<Route path='/login' component={CustomerLogin}/>				  					
+					<Route path='/home' component={ CustomerHome } />					
 				</div>
 			</BrowserRouter>
 		); 
 	}
 }
 
+/*
+<Route path='/register' component={Register}/>
+<Route exact path='/' render = {()=> <Redirect to="/home"/>}/>
+<PrivateRoute authenticated={this.props.user.getIn(['authenticated']) }  path="/home" component={ CustomerHome } />
+<PublicRoute authenticated={this.props.user.getIn(['authenticated']) }  path="/login" component={ CustomerLogin } />
 
+<Route path="/adminlogin" render={() =>{
+	return (this.props.user.getIn(['authenticated'])==false)?(<AdminLogin/>):(<Redirect to='/adminhome'/>);
+}}/>
+<Route path="/adminhome" render={() => {
+	return (this.props.user.getIn(['authenticated'])==true)?(<AdminHome/>):(<Redirect to='/adminlogin'/>);
+}}/>
+*/
 const mapStateToProps=(state)=>{
 	return {app:state.App, user:state.User};
 };

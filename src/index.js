@@ -10,25 +10,15 @@ import rootReducer from './main/RootReducer';
 import {init} from './ducks/Socket/Actions';
 import App from './main/App';
 
+import 'materialize-css/dist/css/materialize.min.css';
+import 'materialize-css';
 const store = createStore(
 	rootReducer,	
 	applyMiddleware(
 		thunkMiddleware // lets us dispatch() functions
 	)
 );
-/*const theme = createMuiTheme({
-	palette: {
-		primary: {
-			main: '#00b53d', light:'#67ff9c', dark:'#00b53d'
-		},
-		secondary: {
-			main: '#f44336', light:'#ff7961', dark:'#ba000d'
-		},
-		header:{
-			main:'#606060'
-		}
-	},
-});*/
+
 init(store.dispatch);
 render(	
 	<Provider store={store}>	
