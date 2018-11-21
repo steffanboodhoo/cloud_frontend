@@ -7,8 +7,7 @@ export const types = {RECIEVE_IMAGES, SELECT_IMAGE};
 export const get_images = () => {
     return dispatch => {
         Axios.post('http://localhost:9000/image/select/open',{}).then( resp => {
-            console.log(resp);
-            dispatch(recieve_images(resp.data.images))
+            dispatch(recieve_images(resp.data));
         })
     }
 }
@@ -16,7 +15,7 @@ export const get_images = () => {
 export const recieve_images = (images) => {
     return {
         type:RECIEVE_IMAGES,
-        payload:{images}
+        payload:{'images':images}
     }
 }
 

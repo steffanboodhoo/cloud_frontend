@@ -2,6 +2,9 @@ import React,{Component} from 'react';
 import * as image_actions from '../ducks/Image/Actions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+
+import ImageItem from './ImageItem';
+
 class SelectInstance extends Component{
     constructor(props){
         super(props);
@@ -10,7 +13,9 @@ class SelectInstance extends Component{
     render(){
         return(
             <div>
-                <h1>Test</h1>
+                {this.props.image.getIn(['images']).map( ( el, i) => {
+                    return <ImageItem key={i} {...el}/>
+                })}
             </div>
         );
     }
