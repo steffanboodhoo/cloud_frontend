@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as UserActions from '../ducks/User/Actions.js';
 import CreateInstance from '../_create_instance/CreateInstance';
-
+import './home.css';
 
 class CustomerHome extends Component{
 	constructor(props){
@@ -18,8 +18,11 @@ class CustomerHome extends Component{
 			<div>
 				<nav>
 					<div className="nav-wrapper">
-					<a href="#" className="brand-logo">Automation</a>
-					<a href="#" data-target="slide-out" className="waves-effect sidenav-trigger"><i className="material-icons">menu</i></a>
+					<a href="#" className="brand-logo center">Automation</a>
+					<ul><li>
+					<a href="#" data-target="slide-out" className="left" id="sidenav_cust_trigger"><i className="material-icons">menu</i></a>
+					</li>
+					</ul>
 					</div>
 				</nav>
 				
@@ -65,15 +68,14 @@ class CustomerHome extends Component{
 // 	</div>
 // </div>
 	componentDidMount(){
-		// $('.tabs').tabs();
-		// var elems = document.querySelectorAll('.tabs');
-		// var instance = M.Tabs.init(elems, {});
-		document.addEventListener('DOMContentLoaded', ()=>{
-			const elems = document.querySelectorAll('.sidenav');
-			const instances = M.Sidenav.init(elems, {});
-			instances[0].open();
-			// var instance = M.Sidenav.getInstance(elem);
-		  });
+		// document.addEventListener('DOMContentLoaded', ()=>{
+		const elem = document.querySelectorAll('.sidenav')[0];
+		const instance = M.Sidenav.init(elem, {});
+		instance.open();
+		//   });
+		document.getElementById('sidenav_cust_trigger').addEventListener('click', e => {
+			instance.open();
+		});
 	}
 }
 

@@ -1,12 +1,16 @@
 import React,{Component} from 'react';
 import SelectImage from './SelectImage';
+import PurchaseImage from './PurchaseImage';
+
+import './create_instance.css';
 class CreateInstance extends Component{
     constructor(props){
         super(props);
         this.state = {
             stage:0,
             views:[
-                <SelectImage/>
+                <SelectImage/>,
+                <PurchaseImage/>
             ]
         }
     }
@@ -14,7 +18,7 @@ class CreateInstance extends Component{
     render(){
         return(
             <div>
-                {this.state.views[0]}
+                {this.state.views[this.state.stage]}
             </div>
         );
     }
