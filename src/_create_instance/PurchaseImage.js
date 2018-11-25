@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+
+
 import ImageItem from './ImageItem';
+import * as image_actions from '../ducks/Image/Actions'; 
+import * as image from '../ducks/Image/Selector';
 
 class PurchaseImage extends Component{
     constructor(props){
@@ -11,7 +15,7 @@ class PurchaseImage extends Component{
     render(){
         return( 
             <div className="row">
-                <div className="col s6">
+                <div className="col m6">
                 <div className="row">
                     <div className="input-field col s12">
                         <input id="card_number" type="text" className="validate"/>
@@ -42,8 +46,9 @@ class PurchaseImage extends Component{
                     </div>
                 </div>
                 </div>
-                <div className="col s6">
-
+                <div className="col m6">
+                    <div></div>
+                    <ImageItem {...image.get_selected_image(this.props)}/>
                 </div>
                 
             </div>
@@ -56,7 +61,14 @@ class PurchaseImage extends Component{
 
         elem = document.querySelectorAll('select')[0];
         const select_instance = M.FormSelect.init(elem,{});
-
+        console.log(image.get_selected_image(this.props));
     }
 }
-export default PurchaseImage;
+const mapStateToProps = (state) =>{
+	return {image:state.Image};
+};
+const mapActionsToProps = (dispatch) =>{
+	return {image_actions:bindActionCreators(image_actions,dispatch)};
+};
+
+export default connect(mapStateToProps,mapActionsToProps)(PurchaseImage);

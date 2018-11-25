@@ -13,6 +13,7 @@ export default (state = initial_state, action) => {
         return state.setIn(['images'], action.payload.images);
     }
     case(types.SELECT_IMAGE):{
+        // console.log(action.payload.image_name)
         state = state.setIn(['selected_image_name'],action.payload.image_name);
         console.log(state)
         return state.setIn(['selected_instance_type'],action.payload.instance_type);

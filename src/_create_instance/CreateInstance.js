@@ -9,8 +9,8 @@ class CreateInstance extends Component{
         this.state = {
             stage:0,
             views:[
-                <SelectImage/>,
-                <PurchaseImage/>
+                <SelectImage changeStage={this.changeStage}/>,
+                <PurchaseImage changeStage={this.changeStage}/>
             ]
         }
     }
@@ -21,6 +21,10 @@ class CreateInstance extends Component{
                 {this.state.views[this.state.stage]}
             </div>
         );
+    }
+
+    changeStage = (newStage) => {
+        this.setState({stage:newStage});
     }
 }
 

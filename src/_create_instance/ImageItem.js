@@ -7,7 +7,7 @@ class ImageItem extends Component {
 
     render(){
         return(
-                <div className="col s12 m6">
+                <div className="col s12">
                     <div className="card blue-grey darken-1">
                         <div className="card-content white-text">
                             <span className="card-title">{this.props.display_name}</span>
@@ -17,7 +17,7 @@ class ImageItem extends Component {
                             <p>Monthly Rate: ${this.props.monthly_rate}TT</p>
                         </div>
                         <div className="card-action">
-                            <a href="#" onClick={()=>{this.props.selectImage(this.image_name, this.instance_type)}} >Purchase</a>
+                            <a href="#" onClick={()=>{this.props.selectImage(this.props.image_name, this.props.instance_type)}} >Purchase</a>
                             <ul className="collapsible card-action-custom">
                                 <li>
                                     <div className="collapsible-header"><i className="material-icons">filter_drama</i>Learn More</div>
