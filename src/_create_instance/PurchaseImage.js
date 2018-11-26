@@ -19,13 +19,13 @@ class PurchaseImage extends Component{
                 <div className="row">
                     <div className="input-field col s12">
                         <input id="card_number" type="text" className="validate"/>
-                        <label htmlFor="card_number">Card number</label>
+                        <label htmlFor="card_number">Card Number</label>
                     </div>
                 </div>
                 <div className="row">
                     <div className="input-field col s12">
                         <input id="card_exp_date" type="text" className="datepicker"/>
-                        <label htmlFor="card_exp_date">Expiry date</label>
+                        <label htmlFor="card_exp_date">Card Expiry Date</label>
                     </div>
                 </div>
                 <div className="row">
