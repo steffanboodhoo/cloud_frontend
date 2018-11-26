@@ -17,7 +17,9 @@ class ImageItem extends Component {
                             <p>Monthly Rate: ${this.props.monthly_rate}TT</p>
                         </div>
                         <div className="card-action">
-                            <a href="#" onClick={()=>{this.props.selectImage(this.props.image_name, this.props.instance_type)}} >Purchase</a>
+                            { ('selectImage' in this.props)?
+                                <a href="#" onClick={()=>{this.props.selectImage(this.props.image_name, this.props.instance_type)}} >Purchase</a>:''
+                            }
                             <ul className="collapsible card-action-custom">
                                 <li>
                                     <div className="collapsible-header"><i className="material-icons">filter_drama</i>Learn More</div>

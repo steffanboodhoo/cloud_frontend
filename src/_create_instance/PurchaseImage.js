@@ -35,7 +35,7 @@ class PurchaseImage extends Component{
                     </div>
 
                     <div className="input-field col s6">
-                        <select>
+                        <select id='currency'>
                         {/* <option value="" disabled selected>Choose your option</option> */}
                         <option value="840" >USD</option>
                         <option value="780">TTD</option>
@@ -45,9 +45,12 @@ class PurchaseImage extends Component{
                         <label>Currency</label>
                     </div>
                 </div>
+                
+                <div className='row'>
+                <button className="waves-effect waves-light btn-large" onClick={getData}><i className="material-icons right">send</i>purchase</button>
+                </div>
                 </div>
                 <div className="col m6">
-                    <div></div>
                     <ImageItem {...image.get_selected_image(this.props)}/>
                 </div>
                 
@@ -70,5 +73,13 @@ const mapStateToProps = (state) =>{
 const mapActionsToProps = (dispatch) =>{
 	return {image_actions:bindActionCreators(image_actions,dispatch)};
 };
-
+const getData = () => {
+    console.log('hello')
+    const card_number = document.getElementById('card_number').value
+    const card_exp_date = document.getElementById('card_exp_date').value
+    const card_cvv = document.getElementById('card_cvv').value
+    const currency = document.getElementById('currency').value
+    const params = {card_number, card_exp_date, card_cvv, currency}
+    console.log(params);
+}
 export default connect(mapStateToProps,mapActionsToProps)(PurchaseImage);
