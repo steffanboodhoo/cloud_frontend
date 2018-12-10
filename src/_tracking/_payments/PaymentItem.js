@@ -4,7 +4,7 @@ const PaymentItem = ({payment}) => {
     return (
         <div className='row'>
             <div className='col s3'>
-                {payment.machine_id}
+                {payment.instance_id}
             </div>
             <div className='col s3'>
                 {payment.status}

@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import * as UserActions from '../ducks/User/Actions.js';
 import CreateInstance from '../_create_instance/CreateInstance';
 import ViewPayments from '../_tracking/_payments/ViewPayments';
+import Operations from '../_operations/Operations';
 import './home.css';
 
 class CustomerHome extends Component{
@@ -48,7 +49,7 @@ class CustomerHome extends Component{
 
 				<div>
 					{/* <CreateInstance/> */}
-					<ViewPayments/>
+					<Operations/>
 				</div>
 			</div>
 			
