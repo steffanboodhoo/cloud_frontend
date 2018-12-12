@@ -12,13 +12,17 @@ class Console extends Component{
 	render(){
 		const {classes} = this.props;
 		return(
-			<div className='console'>
+			<div id='console' className='console'>
 				{socket.getMessages(this.props).map( (el,i) => {
 					return (<p className='console_text' key={i}>{el}</p>);
 				})}
 			</div>
 		);
 	}
+	componentDidUpdate(){
+		const elem = document.getElementById('console')
+		elem.scrollTop = elem.scrollHeight;
+    }
 }
 
 const mapStateToProps = (state) => {return{socket:state.Socket}};
