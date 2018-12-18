@@ -4,13 +4,13 @@ const initial_state = Map({
 	instances:[]
 })
 
-const Intance = (state = initial_state, action) => {
+export default (state = initial_state, action) => {
 	switch(action.type){
 	case(types.RECIEVE_INSTANCES):{
+		console.log(action.payload.instances)
 		return state.setIn(['instances'], action.payload.instances);
 	}
 	default:
 		return state;
 	}
 }
-export default Instance;

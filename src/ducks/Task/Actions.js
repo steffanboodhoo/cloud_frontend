@@ -8,7 +8,6 @@ export const get_tasks = (fields=[], filters={}) => {
     return dispatch => {
         const params = {fields, filters}
         Axios.post('http://localhost:9000/task/select/open',filters).then( resp => {
-            console.log(resp)
             dispatch({
                 type: RECIEVE_TASKS,
                 payload: {tasks:resp.data}

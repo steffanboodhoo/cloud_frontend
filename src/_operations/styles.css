@@ -11,7 +11,12 @@
     text-align: left;
 }
 
-.row_container{
+.instance_item{
+    display: block;
+    text-align: center;
+    
+}
+/* .row_container{
     display:flex;
     flex-direction:row;
 }
@@ -21,5 +26,5 @@
     margin-top:2%;
     margin-left:2%;
     padding:2%;
-}
+} */
     

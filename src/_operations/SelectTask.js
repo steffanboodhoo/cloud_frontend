@@ -1,4 +1,8 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+import * as task_actions from '../ducks/Task/Actions';
 
 class SelectTask extends Component{
     constructor(props){
@@ -23,12 +27,16 @@ class SelectTask extends Component{
                     return (
                         <div key={i}>
                             <p><b>{el.task_name}</b>: {el.description}</p>
-                            <button onClick={(ev)=>{this.props.handle_group_task(el);}}> Run Task</button>
+                            <button onClick={(ev)=>{this.props.handle_select_task(el);}}> Run Task</button>
                         </div>
                     );
                 })}
             </div>
         </div>);
+    }
+
+    componentDidMount(){
+        this.props.task_actions.get_tasks({'filters':{'type':'GROUP'}})
     }
 
     handle_filter_change = (ev) => {
@@ -41,4 +49,6 @@ class SelectTask extends Component{
     }
 }
 
-export default SelectTask;
+const mapStateToProps = (state) => ({task:state.Task});
+const mapActionsToProps = (dispatch) => ({task_actions:bindActionCreators(task_actions,dispatch)});
+export default connect(mapStateToProps, mapActionsToProps)(SelectTask);
