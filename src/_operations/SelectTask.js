@@ -36,7 +36,8 @@ class SelectTask extends Component{
     }
 
     componentDidMount(){
-        this.props.task_actions.get_tasks({'filters':{'type':'GROUP'}})
+        const filters = {type:`${this.props.target_type}`}
+        this.props.task_actions.get_tasks(filters);
     }
 
     handle_filter_change = (ev) => {

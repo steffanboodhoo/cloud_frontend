@@ -1,5 +1,8 @@
 import io from 'socket.io-client';
-const socket = io('http://'+window.location.hostname+':9000');
+const socket = io('http://'+window.location.hostname+':9000',{timeout:70000});
+// console.log(socket.Manager())
+// console.log(io.timeout(40000))
+// console.log(io.timeout())
 console.log('socket created');
 const START_TASK = 'socket/SEND_START_TASK';
 const NEW_MESSAGE = 'socket/NEW_MESSAGE';
@@ -8,7 +11,7 @@ export const types = {START_TASK, NEW_MESSAGE, RESET_MESSAGES};
 
 //must be called before anything else
 export function init(dispatch){
-	socket.on( 'message', (event) => {
+	socket.on( 'ansible-message', (event) => {
 		console.log(event);
 		return dispatch(
 			{
@@ -20,6 +23,7 @@ export function init(dispatch){
 }
 
 export function send_instance_task(args){
+	console.log(args)
 	socket.emit('INSTANCE', args);
 	return{
 		type:START_TASK

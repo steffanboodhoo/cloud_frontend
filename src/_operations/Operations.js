@@ -16,7 +16,7 @@ class Operations extends Component{
         super(props);
         this.state = {
             target_data:null,
-            target_type:'GROUP'
+            target_type:'INSTANCE'
         }
     }
 
@@ -41,7 +41,7 @@ class Operations extends Component{
                         }
                     </div>
                     <div className='col s4'>
-                        <SelectTask handle_select_task={this.state.target_type=='INSTANCE'?this.handle_instance_task:this.handle_group_task}/>
+                        <SelectTask handle_select_task={this.state.target_type=='INSTANCE'?this.handle_instance_task:this.handle_group_task} target_type={this.state.target_type}/>
                     </div>
                     
                 </div>                    
@@ -61,7 +61,7 @@ class Operations extends Component{
 
 	handle_group_task = (el) => {
         console.log(el);
-        console.log(document.getElementById('group_select').value);
+        console.log(this.state.target_data);
         // let task_code = 'TEST_TASKS'
         // let group_name = 'centos_etender_apps'
         // let args  = {task_code, group_name}
@@ -69,11 +69,17 @@ class Operations extends Component{
     }
     handle_instance_task = (el) => {
         console.log(el);
-        console.log(document.getElementById('group_select').value);
+        console.log(this.state.target_data);
+        const args = {task_code:el.task_code, 
+            machine_name:this.state.target_data.machine_name,
+            host:this.state.target_data.internal_ip,
+            machine_id:this.state.target_data.machine_id
+        }
+        this.props.socket_actions.send_instance_task(args);
+
         // let task_code = 'TEST_TASKS'
         // let group_name = 'centos_etender_apps'
         // let args  = {task_code, group_name}
-        // this.props.socket_actions.send_group_task(args);
 	}
 }
 

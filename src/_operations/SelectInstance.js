@@ -27,7 +27,8 @@ class SelectInstance extends Component {
         return (<div key={i} className={`z-depth-${this.state.selected==i?4:2} instance_item col s4 l3`} index={i} onClick={this.handle_select_intance}>
             <i className="large material-icons">computer</i>
             <p><b>Machine Name</b>: {el.machine_name}
-                <br /><b>Status</b>: {el.status}</p>
+                <br /><b>Status</b>: {el.status}
+                <br /><b>Internal</b>: {el.internal_ip}</p>
         </div>)
     }
 
