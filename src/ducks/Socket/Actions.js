@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-const socket = io('http://'+window.location.hostname+':9000',{timeout:70000});
+const socket = io('http://'+window.location.hostname+':9000/task');
 // console.log(socket.Manager())
 // console.log(io.timeout(40000))
 // console.log(io.timeout())
