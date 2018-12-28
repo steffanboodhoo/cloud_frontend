@@ -60,27 +60,34 @@ class Operations extends Component{
     }
 
 	handle_group_task = (el) => {
-        console.log(el);
-        console.log(this.state.target_data);
-        // let task_code = 'TEST_TASKS'
-        // let group_name = 'centos_etender_apps'
-        // let args  = {task_code, group_name}
-        // this.props.socket_actions.send_group_task(args);
+        let args = {
+            task_code:el.task_code,
+            group_name:this.state.target_data
+        }
+        args = this.format_special_task(el.task_code, args, el.extra);
+        console.log(args);
+        this.props.socket_actions.send_group_task(args);
     }
     handle_instance_task = (el) => {
-        console.log(el);
-        console.log(this.state.target_data);
-        const args = {task_code:el.task_code, 
+        let args = {task_code:el.task_code, 
             machine_name:this.state.target_data.machine_name,
             host:this.state.target_data.internal_ip,
             machine_id:this.state.target_data.machine_id
         }
+        console.log(args)
+        args = this.format_special_task(el.task_code, args, el.extra)
         this.props.socket_actions.send_instance_task(args);
-
-        // let task_code = 'TEST_TASKS'
-        // let group_name = 'centos_etender_apps'
-        // let args  = {task_code, group_name}
-	}
+    }
+    
+    format_special_task = (task_code, args, extra) => {
+        const param_map = {
+            CUSTOM_QUERY:'query'
+        };
+        if (task_code in param_map){
+            args[ param_map[task_code] ] = extra
+        }
+        return args
+    }
 }
 
 const mapStateToProps = (state) => {return{user:state.User};};

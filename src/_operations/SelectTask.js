@@ -19,6 +19,12 @@ class SelectTask extends Component{
                 <input id="reason" type="text" className="validate"/>
                 <label htmlFor="reason">Reason For Task</label>
             </div>
+            
+            <div className="input-field col s12">
+                <textarea id="extra" className="validate" rows="5" cols="50" defaultValue="Enter extra data here e.g. query for custom query"/>
+
+                {/* <label htmlFor="extra">Extra Data e.g. custom query</label> */}
+            </div>
 
             <div className="input-field col s12">
                 <input id='task_search' onChange={this.handle_filter_change} type='text' margin="normal"/>
@@ -27,7 +33,10 @@ class SelectTask extends Component{
                     return (
                         <div key={i}>
                             <p><b>{el.task_name}</b>: {el.description}</p>
-                            <button onClick={(ev)=>{this.props.handle_select_task(el);}}> Run Task</button>
+                            <button onClick={(ev)=>{
+                                el.extra = document.getElementById('extra').value;
+                                this.props.handle_select_task(el);
+                            }}> Run Task</button>
                         </div>
                     );
                 })}
