@@ -1,26 +1,30 @@
-import axios from 'axios';
-const SERVER = 'http://localhost:9000';
-axios.defaults.withCredentials = true;
-//PAYMENT
-const POST_PAY = 'POST_PAY';
-const POST_PAY_SUCCESS = 'POST_PAY_SUCCESS';
-const POST_PAY_FAILURE = 'POST_PAY_FAILURE';
-export const types = {POST_PAY, POST_PAY_FAILURE, POST_PAY_SUCCESS};
-export function pay(data){
+import Axios from "axios";
+
+const RECIEVE_PAYMENTS = 'PAYMENTS/RECIEVE_PAYMENTS';
+
+export const types = {RECIEVE_PAYMENTS};
+
+export const get_payments = (fields=[], filters={}) => {
 	return dispatch => {
-		axios.post(SERVER+'/pay',data)
-			.then( resp => {
-				console.log(data);
-			});
-	};
+		const params = {fields, filters};
+		Axios.post('http://localhost:9000/payment/select/open',params).then( resp => {
+			const enhanced_payments = resp.data.map( el => {
+				el.instance_id = el.instance_id==null?'pending creation':el.instance_id;
+				const date = (new Date(el.last_updated*1000)).toLocaleString();
+				const search_str = ''+el.user_id+status+date
+				return { ...el
+					,'date':date
+					,'search_str':search_str
+				}
+			})
+			dispatch(recieve_payments(enhanced_payments));
+		});
+	}
 }
 
-export const CHANGE_INSTANCE = 'CHANGE_INSTANCE';
-export function change_instance(instance_id){
+const recieve_payments = (payments) => {
 	return {
-		type:CHANGE_INSTANCE,
-		payload:{
-			instance_id:instance_id
-		}
-	};
+		type:RECIEVE_PAYMENTS,
+		payload:{payments}
+	}
 }
