@@ -48,8 +48,8 @@ class CustomerHome extends Component{
 				</ul>
 
 				<div>
-					{/* <CreateInstance/> */}
-					<Operations/>
+					<CreateInstance/>
+					{/* <Operations/> */}
 				</div>
 			</div>
 			

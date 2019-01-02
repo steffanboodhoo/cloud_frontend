@@ -18,6 +18,8 @@ class SelectGroup extends Component {
     };
     componentDidMount(){
         this.props.handle_select_target( document.getElementById('task_group_select').value )
+        let elem = document.querySelectorAll('select')[0];
+        const select_instance = M.FormSelect.init(elem,{});
     }
 
     handle_select_group = (ev) => {

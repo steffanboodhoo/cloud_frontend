@@ -16,7 +16,7 @@ class Operations extends Component{
         super(props);
         this.state = {
             target_data:null,
-            target_type:'INSTANCE',
+            target_type:'GROUP',
             reason:''
         }
     }
@@ -29,11 +29,23 @@ class Operations extends Component{
                 </div>
 
                 <div className='row'>
-                    <div className='col s2'>
-                        <ul>
-                            <li>Groups</li>
-                            <li>Instances</li>
-                        </ul>
+                    <div className='col s2' onClick={this.handle_select_target_type}>
+                        {/* <div onClick={this.handle_select_target_type}> */}
+                        <div data-target-type='GROUP' className="col s12 waves-effect hoverable instance_type_select z-depth-2">
+                                Groups
+                        </div>
+                        <div data-target-type='INSTANCE' className="col s12 waves-effect hoverable instance_type_select z-depth-2">
+                                Instances
+                        </div>
+                        {/* </div> */}
+                        {/* <ul onClick={this.handle_select_target_type}>
+                            <li data-target-type='GROUP' className="waves-effect hoverable instance_type_select z-depth-2">
+                                Groups
+                            </li>
+                            <li data-target-type='INSTANCE' className="waves-effect hoverable instance_type_select z-depth-2">
+                                Instances
+                            </li>
+                        </ul> */}
                     </div>
 
                     <div  className='col s6'>
@@ -51,15 +63,21 @@ class Operations extends Component{
     }
 
     componentDidMount(){
-        let elem = document.querySelectorAll('select')[0];
-        const select_instance = M.FormSelect.init(elem,{});
+        
     }
-    
+    // Select Group menu or Instance menu - target_type
+    handle_select_target_type = (ev) => {
+        const target_type = ev.target.getAttribute('data-target-type');
+        console.log(target_type)
+        this.setState({target_type});
+    }
+    // Select specific group or instance to perform tasks - target
     handle_select_target = (el) => {
         this.setState({target_data:el});
         console.log(el);
     }
 
+    //format arguments and send group task
 	handle_group_task = (el) => {
         let args = {
             task_code:el.task_code,
@@ -69,6 +87,7 @@ class Operations extends Component{
         args = this.format_special_task(el.task_code, args, el.extra);
         this.props.socket_actions.send_group_task(args);
     }
+    //format arguments and send instance task
     handle_instance_task = (el) => {
         let args = {
             task_code:el.task_code, 
@@ -80,7 +99,7 @@ class Operations extends Component{
         args = this.format_special_task(el.task_code, args, el.extra)
         this.props.socket_actions.send_instance_task(args);
     }
-    
+    //If task is a special task (given by TASK CODE) then format params
     format_special_task = (task_code, args, extra) => {
         const param_map = {
             CUSTOM_QUERY:'query'
