@@ -1,16 +1,18 @@
 import React,{Component} from 'react';
-import SelectImage from './SelectImage';
-import PurchaseImage from './PurchaseImage';
+
 
 import './create_instance.css';
+import SelectTemplate from './SelectTemplate';
+import PurchaseInstance from '../_purchase/PurchaseInstance';
+
 class CreateInstance extends Component{
     constructor(props){
         super(props);
         this.state = {
             stage:0,
             views:[
-                <SelectImage changeStage={this.changeStage}/>,
-                <PurchaseImage changeStage={this.changeStage}/>
+                <SelectTemplate changeStage={this.changeStage}/>,
+                <PurchaseInstance changeStage={this.changeStage}/>
             ]
         }
     }
