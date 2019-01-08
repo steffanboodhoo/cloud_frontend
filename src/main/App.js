@@ -38,7 +38,7 @@ class App extends Component{
 	}
 	
 	render(){		
-		console.log(this.props.user.getIn(['authenticated']));
+		// console.log(this.props.user.getIn(['authenticated']));
 		return(
 			<BrowserRouter>
 				<div>

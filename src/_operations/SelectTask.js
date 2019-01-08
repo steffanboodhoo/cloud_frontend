@@ -46,14 +46,14 @@ class SelectTask extends Component{
     }
 
     componentDidMount(){
-        const filters = {target_type:`${this.props.target_type}`}
-        this.props.task_actions.get_tasks(filters);
+        // const filters = {target_type:`${this.props.target_type}`}
+        this.props.task_actions.get_tasks();
     }
 
     handle_filter_change = (ev) => {
 		const filtered = this.props.task.getIn(['tasks']).filter( el => {
             const text = ev.target.value.toLowerCase();
-            return el.task_name.toLowerCase().includes(text);
+            return el.task_name.toLowerCase().includes(text) && el.target_type==this.props.target_type;
             //||el.description.toLowerCase().includes(text)||text=='';
 		});
 		this.setState({filtered_tasks:filtered});
