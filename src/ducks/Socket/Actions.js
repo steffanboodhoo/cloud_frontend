@@ -27,10 +27,13 @@ export function init(dispatch){
 	});
 
 	sock_metric.on( 'machine-metric', (event) => {
-		console.log(RECIEVE_METRIC);
+		console.log(event)
+		const data = JSON.parse(event)
+		const machine_name = data.machine_name
+		delete data.machine_name
 		return dispatch({
 			type: RECIEVE_METRIC,
-			payload: event
+			payload: {machine_name, data}
 		})
 	})
 }

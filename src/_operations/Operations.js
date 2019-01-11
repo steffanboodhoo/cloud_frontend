@@ -101,13 +101,21 @@ class Operations extends Component{
     }
     //If task is a special task (given by TASK CODE) then format params
     format_special_task = (task_code, args, extra) => {
-        const param_map = {
-            CUSTOM_QUERY:'query'
-        };
-        if (task_code in param_map){
-            args[ param_map[task_code] ] = extra
+        const prepare_map = {
+            CUSTOM_QUERY: (args, extra)=>{return {query:extra, ...args}},
+            BACKUP_DB: (args, extra)=> { 
+                const values = extra.trim().split(',');                
+                return {...args, backup:{database_name:values[0], backup_name:values[1]}}
+            }
         }
-        return args
+        return prepare_map[task_code](args, extra);
+        // if (task_code == 'CUSTOM_QUERY'){
+        //     args['query'] = extra
+        // }
+        // if (task_code in param_map){
+        //     args[ param_map[task_code] ] = extra
+        // }
+        // return args
     }
 }
 

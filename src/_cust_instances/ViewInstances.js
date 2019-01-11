@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 
 import * as instance_actions from '../ducks/Instance/Actions';
 import * as socket_actions from '../ducks/Socket/Actions';
+import * as instance from '../ducks/Instance/Selectors';
 
 class ViewInstances extends Component{
     constructor(props){
@@ -14,8 +15,14 @@ class ViewInstances extends Component{
         return(<div>
             
             {this.props.instance.getIn(['instances']).map( (elem, i) => {
+                console.log(instance.getMetric( this.props, elem.machine_name));
+                const metric = instance.getMetric( this.props, elem.machine_name);
                 return (<div key={i}>
-                    elem
+                    {`cpu: ${metric.cpu}%`}<br/>
+                    {`memory: ${metric.memory}%`}<br/>
+                    STORAGE <br/>
+                    {`files: ${metric.storage.files}%`}<br/>
+                    {`db: ${metric.storage.db}%`}
                 </div>);
             })
             }

@@ -2,7 +2,7 @@ import {Map} from 'immutable';
 import {types} from './Actions';
 const initial_state = Map({
 	instances:[],
-	statistics:{}
+	metrics:{}
 })
 
 export default (state = initial_state, action) => {
@@ -10,9 +10,15 @@ export default (state = initial_state, action) => {
 	case(types.RECIEVE_INSTANCES):{
 		return state.setIn(['instances'], action.payload.instances);
 	}
-	case(types.RECIEVE_METRIC):{
-		console.log(action.payload);
+	case(types.INIT_METRICS):{
+		state =  state.setIn(['metrics'],Map(action.payload));
+		console.log(state)
 		return state;
+	}
+	case(types.RECIEVE_METRIC):{
+		console.log(state);
+		console.log(action.payload.machine_name)
+		return state.setIn(['metrics', action.payload.machine_name], action.payload.data)
 	}
 	default:
 		return state;

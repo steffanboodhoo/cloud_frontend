@@ -16,7 +16,7 @@ class CustomerHome extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			current_view:'MY_INSTANCES',
+			current_view:'OPERATION',
 			nav:null,
 			view_map:{
 				MY_INSTANCES:<ViewInstances/>,
