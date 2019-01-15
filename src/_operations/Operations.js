@@ -29,6 +29,7 @@ class Operations extends Component{
                 </div>
 
                 <div className='row'>
+                
                     <div className='col s2' onClick={this.handle_select_target_type}>
                         {/* <div onClick={this.handle_select_target_type}> */}
                         <div data-target-type='GROUP' className="col s12 waves-effect hoverable instance_type_select z-depth-2">
@@ -37,15 +38,6 @@ class Operations extends Component{
                         <div data-target-type='INSTANCE' className="col s12 waves-effect hoverable instance_type_select z-depth-2">
                                 Instances
                         </div>
-                        {/* </div> */}
-                        {/* <ul onClick={this.handle_select_target_type}>
-                            <li data-target-type='GROUP' className="waves-effect hoverable instance_type_select z-depth-2">
-                                Groups
-                            </li>
-                            <li data-target-type='INSTANCE' className="waves-effect hoverable instance_type_select z-depth-2">
-                                Instances
-                            </li>
-                        </ul> */}
                     </div>
 
                     <div  className='col s6'>
@@ -104,11 +96,14 @@ class Operations extends Component{
         const prepare_map = {
             CUSTOM_QUERY: (args, extra)=>{return {query:extra, ...args}},
             BACKUP_DB: (args, extra)=> { 
-                const values = extra.trim().split(',');                
+                const values = extra.split(',').map( e => e.trim() );
                 return {...args, backup:{database_name:values[0], backup_name:values[1]}}
             }
         }
-        return prepare_map[task_code](args, extra);
+        if (task_code in prepare_map)
+            return prepare_map[task_code](args, extra);
+        return args;
+        
         // if (task_code == 'CUSTOM_QUERY'){
         //     args['query'] = extra
         // }

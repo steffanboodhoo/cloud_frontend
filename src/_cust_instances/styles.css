@@ -1,0 +1,16 @@
+.instance_item{
+    display: block;
+    text-align: center;
+    
+}
+
+.instance_type_select{
+    display: block;
+    padding:5%;
+    text-align: center;
+}
+
+.customer_operations_container{
+    text-align: center;
+    padding: 2%;
+}

@@ -4,33 +4,47 @@ import {bindActionCreators} from 'redux';
 
 import * as instance_actions from '../ducks/Instance/Actions';
 import * as socket_actions from '../ducks/Socket/Actions';
-import * as instance from '../ducks/Instance/Selectors';
+import './styles.css';
+
+import InstanceItem from './InstanceItem';
+import InstanceView from './InstanceView';
 
 class ViewInstances extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            ALL_INSTANCES:'ALL_INSTANCES',
+            INSTANCE_VIEW:'INSTANCE_VIEW',
+            current_view:'ALL_INSTANCES',
+            selected_instance:null
+        }
     }
     render(){
-        console.log(this.props)
-        return(<div>
-            
-            {this.props.instance.getIn(['instances']).map( (elem, i) => {
-                console.log(instance.getMetric( this.props, elem.machine_name));
-                const metric = instance.getMetric( this.props, elem.machine_name);
-                return (<div key={i}>
-                    {`cpu: ${metric.cpu}%`}<br/>
-                    {`memory: ${metric.memory}%`}<br/>
-                    STORAGE <br/>
-                    {`files: ${metric.storage.files}%`}<br/>
-                    {`db: ${metric.storage.db}%`}
+        if (this.state.current_view == this.state.ALL_INSTANCES)
+            return(
+                <div>
+                <div className='row'>
+                    {this.props.instance.getIn(['instances']).map( (elem, i) => {
+                        return(
+                            <div key={i} className='col s12 m6 l4'>
+                                <InstanceItem instance={this.props.instance} data={elem} select_instance={this.handle_select_instance} />
+                            </div>
+                        )
+                    })}
+                </div>
                 </div>);
-            })
-            }
-        </div>);
+        else if (this.state.current_view == this.state.INSTANCE_VIEW)
+            return(
+                <InstanceView instance={this.props.instance} data={this.state.selected_instance}/>
+            );
     }
 
     componentDidMount(){
         this.props.instance_actions.get_instances();
+    }
+
+    handle_select_instance = (data) => {
+        this.setState({selected_instance:data, current_view:this.state.INSTANCE_VIEW})
     }
 }
 

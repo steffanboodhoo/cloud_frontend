@@ -24,7 +24,7 @@ class SelectInstance extends Component {
 
     create_item = (i, el) => {
         // z-depth-x is the shadow level, the foll statement means set shadow 4 if selected else 2
-        return (<div key={i} className={`z-depth-${this.state.selected==i?4:2} instance_item col s4 l3`} index={i} onClick={this.handle_select_intance}>
+        return (<div key={i} className={`z-depth-${this.state.selected==i?4:2} instance_item waves-effect hoverable col s12 m6 l4 l3`} index={i} onClick={this.handle_select_intance}>
             <i className="large material-icons">computer</i>
             <p><b>Machine Name</b>: {el.machine_name}
                 <br /><b>Status</b>: {el.status}
