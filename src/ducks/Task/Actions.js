@@ -17,3 +17,20 @@ export const get_tasks = (filters={}, fields=[]) => {
     }
 }
 
+
+const OPERATION_MAP = {
+    'BACKUP_DB':'/cust_task_backup_database'    
+}   
+export const handle_cust_operations = ( params ) => {
+    let url = 'http://localhost:9000';
+    if (params.task_code in OPERATION_MAP)
+        url += OPERATION_MAP[params.task_code]
+    else
+        url += '/cust_task_generic'
+    
+    // return dispatch => {
+        Axios.post(url, params).then ( resp => {
+            console.log(resp);
+        })
+    // }
+}

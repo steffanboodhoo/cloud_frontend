@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Chart from 'chart.js';
 import Axios from 'axios';
 import CustOperations from './CustOperations';
+import CustBackupView from './CustBackupView';
 class InstanceView extends Component{
     constructor(props){
         super(props);
@@ -24,12 +25,12 @@ class InstanceView extends Component{
                 </div>
 
                 <div id='cust-operations' className='col s4 z-depth-1'>
-                    <CustOperations/>
+                    <CustOperations data={this.props.data}/>
                 </div>
 
                 <div id='backups-view' className='col s4 z-depth-1'>
-                    <h4>Backups</h4>
-                    <div>
+                    <CustBackupView data={this.props.data}/>
+                <div>
 
                     </div>
                 </div>

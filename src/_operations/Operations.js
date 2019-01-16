@@ -103,14 +103,6 @@ class Operations extends Component{
         if (task_code in prepare_map)
             return prepare_map[task_code](args, extra);
         return args;
-        
-        // if (task_code == 'CUSTOM_QUERY'){
-        //     args['query'] = extra
-        // }
-        // if (task_code in param_map){
-        //     args[ param_map[task_code] ] = extra
-        // }
-        // return args
     }
 }
 
