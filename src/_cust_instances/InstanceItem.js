@@ -9,6 +9,7 @@ class InstanceItem extends Component{
 
     render(){
         const data = this.props.data;
+        console.log(data)
         const metric = instance.getMetric( this.props, data.machine_name);
         return(<div className='z-depth-1 instance_item waves-effect hoverable' onClick={this.handle_select_instance}>
             <div className='row'>

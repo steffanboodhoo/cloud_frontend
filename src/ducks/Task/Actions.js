@@ -19,7 +19,8 @@ export const get_tasks = (filters={}, fields=[]) => {
 
 
 const OPERATION_MAP = {
-    'BACKUP_DB':'/cust_task_backup_database'    
+    'BACKUP_CREATE':'/cust_task_backup_create',    
+    'BACKUP_REMOVE':'/cust_task_backup_remove'    
 }   
 export const handle_cust_operations = ( params ) => {
     let url = 'http://localhost:9000';

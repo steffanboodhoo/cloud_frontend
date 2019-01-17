@@ -40,7 +40,8 @@ class ViewInstances extends Component{
     }
 
     componentDidMount(){
-        this.props.instance_actions.get_instances();
+        const filters = {status:'running'}
+        this.props.instance_actions.get_instances(filters, []);
     }
 
     handle_select_instance = (data) => {
@@ -55,3 +56,5 @@ const mapActionsToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(ViewInstances);
+
+// insert into test_input (pay_country, pay_state, pay_zipcode) values ('GG','FUCK',6969);

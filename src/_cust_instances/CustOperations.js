@@ -18,7 +18,7 @@ class CustOperations extends Component{
                     <input id="backup_name" type="text" className="validate"/>
                     <label htmlFor="backup_name">Backup oName</label>
                 </div>            
-                <button data-task-code='BACKUP_DB' onClick={this.handle_operation} className="waves-effect waves-light btn-small"><i className="material-icons left">backup</i>backup</button>
+                <button data-task-code='BACKUP_CREATE' onClick={this.handle_operation} className="waves-effect waves-light btn-small"><i className="material-icons left">backup</i>backup</button>
             </div>
 
             <div className="divider"></div>
@@ -38,7 +38,7 @@ class CustOperations extends Component{
     }
 
     PREPARE_MAP = {
-        BACKUP_DB: () => {
+        BACKUP_CREATE: () => {
             return {backup:{backup_name:document.getElementById('backup_name').value, database_name:'webapp'}};
         }
     }
@@ -53,7 +53,7 @@ class CustOperations extends Component{
         let extra_params = {}
         if (params.task_code in this.PREPARE_MAP)
             extra_params = this.PREPARE_MAP[params.task_code]();
-        // handle_cust_operations({...params, ...extra_params})
+        handle_cust_operations({...params, ...extra_params})
         console.log(params);
     }
 }
