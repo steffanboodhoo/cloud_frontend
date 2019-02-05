@@ -6,7 +6,7 @@ export const types = {RECIEVE_TEMPLATES, SELECT_TEMPLATE};
 
 export const get_templates = () => {
     return dispatch => {
-        Axios.post('http://localhost:9000/template/select/open',{}).then( resp => {
+        Axios.post('http://localhost:8000/template/select/open',{}).then( resp => {
             dispatch(recieve_templates(resp.data));
         })
     }

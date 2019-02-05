@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie'; 
-const SERVER = 'http://localhost:9000';
+const SERVER = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
 
 const AUTHENTICATE = 'user/AUTHENTICATE';

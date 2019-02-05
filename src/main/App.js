@@ -1,52 +1,57 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import {BrowserRouter, Route, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as UserActions from '../ducks/User/Actions';
+import * as app_actions from '../ducks/App/Actions';
 
-// import Register from '../_register/Register.js';
+
 import CustomerHome from '../_cust/Home.js';
 import CustomerLogin from '../_cust/Login.js';
 
-// import AdminHome from '../_admin/Home.js';
-// import AdminLogin from '../_admin/Login.js';
+// const PrivateRoute = ({component: Component, authenticated, ...props}) => {
+// 	return (
+// 		<Route {...props}
+// 			render={(props) => authenticated === true ? 
+// 				<Component {...props} />
+// 				:<Redirect to={{pathname: '/login', state: {from: props.location}}} />} />
+// 	);
+// };
 
-const PrivateRoute = ({component: Component, authenticated, ...props}) => {
+// const PublicRoute = ({component: Component, authenticated, ...props}) => {
+// 	return (
+// 		<Route {...props} render={(props) => authenticated === false ? 
+// 			<Component {...props} />
+// 			: <Redirect to='/home' />} />
+// 	);
+// };
+
+const CustomerRoute = ({ component, app, ...props }) => {
 	return (
-		<Route {...props}
-			render={(props) => authenticated === true ? 
-				<Component {...props} />
-				:<Redirect to={{pathname: '/login', state: {from: props.location}}} />} />
-	);
-};
+		<Route {...props} render={(props) => {
+			return (app.logged_in == true && app.user_type == 'customer') ?
+				<Component {...props} /> : <Redirect to='/login' />
+		}} />
 
-const PublicRoute = ({component: Component, authenticated, ...props}) => {
-	return (
-		<Route {...props} render={(props) => authenticated === false ? 
-			<Component {...props} />
-			: <Redirect to='/home' />} />
-	);
-};
+	)
+}
 
-class App extends Component{
-	constructor(props){
+
+class App extends Component {
+	constructor(props) {
 		super(props);
-		/*this.state = {
-			authenticated:this.props.app.user.authenticated
-		};*/
 	}
-	
-	render(){		
-		// console.log(this.props.user.getIn(['authenticated']));
-		return(
+
+	render() {
+		return (
 			<BrowserRouter>
 				<div>
-					<Route path='/login' component={CustomerLogin}/>				  					
-					<Route path='/home' component={ CustomerHome } />					
+					<Route path='/login' component={CustomerLogin} />
+					<CustomerRoute path='/home' app={this.props.app} component={CustomerHome} />
+					{/* <Route path='/admin' component={ AdminHome } />					 */}
 				</div>
 			</BrowserRouter>
-		); 
+		);
 	}
 }
 
@@ -63,10 +68,10 @@ class App extends Component{
 	return (this.props.user.getIn(['authenticated'])==true)?(<AdminHome/>):(<Redirect to='/adminlogin'/>);
 }}/>
 */
-const mapStateToProps=(state)=>{
-	return {app:state.App, user:state.User};
+const mapStateToProps = (state) => {
+	return { app: state.App };
 };
-const mapActionsToProps=(dispatch)=>{
-	return {user_actions:bindActionCreators(UserActions,dispatch)};
+const mapActionsToProps = (dispatch) => {
+	return { app_actions: bindActionCreators(app_actions, dispatch) };
 };
-export default connect(mapStateToProps,mapActionsToProps)(App);
+export default connect(mapStateToProps, mapActionsToProps)(App);

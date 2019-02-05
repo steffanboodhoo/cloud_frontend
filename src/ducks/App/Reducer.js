@@ -1,33 +1,27 @@
-import {AUTHENTICATE} from './Actions';
-let initialState = {
-	user:{
-		authenticated:false,
-		user_type: undefined,
-		err:false,
-		message:null
-	},
-	admin_form:{
-		username:{elem:'input', type:'text', label:'Username'},
-		password:{elem:'input', type:'password', label:'Password'},
-		submit:{elem:'button', label:'Login'}
-	},
-	customer_form:{
-		email:{elem:'input', type:'text', label:'Email'},
-		password:{elem:'input', type:'password', label:'Password'},
-		submit:{elem:'button', label:'Login'}
-	}
-};
+import {types} from './Actions';
+import {Map} from 'immutable';
+import Cookies from 'js-cookie';
+let initialState = (() => {
+	let state = Cookies.get('app');
+	if(state == undefined)
+		state = { 
+			logged_in:false,
+			user:null,
+			user_type:null
+		}
+	return Map(state);
+})();
 
 export default function (state = initialState, action){
 	switch(action.type){
-	case(AUTHENTICATE):{
-		let new_state = {...state};
-		new_state.user.message = action.payload.message;
-		new_state.user.authenticated = action.payload.status=='success'?true:false;
-		new_state.user.err = !(new_state.user.message==null);
-		return new_state;
+	case(types.LOG_IN):{
+		return Map(action.payload.app_state);
+	}
+	case(types.LOG_OUT):{
+		let state = {logged_in:false, user:null, user_type:null}
+		return Map(state);
 	}
 	default:
-		return{...state};
+		return state;
 	}
 }

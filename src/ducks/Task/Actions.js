@@ -7,7 +7,7 @@ export const types = {RECIEVE_TASKS};
 export const get_tasks = (filters={}, fields=[]) => {
     return dispatch => {
         const params = {fields, filters}
-        Axios.post('http://localhost:9000/task/select/open',params).then( resp => {
+        Axios.post('http://localhost:8000/task/select/open',params).then( resp => {
             console.log(resp)
             dispatch({
                 type: RECIEVE_TASKS,
@@ -23,7 +23,7 @@ const OPERATION_MAP = {
     'BACKUP_REMOVE':'/cust_task_backup_remove'    
 }   
 export const handle_cust_operations = ( params ) => {
-    let url = 'http://localhost:9000';
+    let url = 'http://localhost:8000';
     if (params.task_code in OPERATION_MAP)
         url += OPERATION_MAP[params.task_code]
     else

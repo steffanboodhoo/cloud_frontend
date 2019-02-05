@@ -1,5 +1,5 @@
 import axios from 'axios';
-const SERVER = 'http://localhost:9000';
+const SERVER = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
 
 export const AUTHENTICATE = 'AUTHENTICATE';

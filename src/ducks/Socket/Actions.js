@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 
-const sock_tasks = io('http://'+window.location.hostname+':9000/task');
-const sock_metric = io('http://'+window.location.hostname+':9000/metric');
+const sock_tasks = io('http://'+window.location.hostname+':8000/task');
+const sock_metric = io('http://'+window.location.hostname+':8000/metric');
 
 const START_TASK = 'socket/SEND_START_TASK';
 const NEW_MESSAGE = 'socket/NEW_MESSAGE';

@@ -10,7 +10,7 @@ export const types = {RECIEVE_INSTANCES, RECIEVE_METRIC, INIT_METRICS};
 export const get_instances = (filters={}, fields=[]) => {
 	const params = {fields, filters};
 	return dispatch => {
-		Axios.post('http://localhost:9000/instance/select/open', params).then( resp => {
+		Axios.post('http://localhost:8000/instance/select/open', params).then( resp => {
 			const metrics = init_metric(resp.data);
 			dispatch({
 				type: INIT_METRICS,

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 // import InstanceReq from '../ducks/InstanceRequest/Reducer.js';
-import User from '../ducks/User/Reducer.js';
+// import User from '../ducks/User/Reducer.js';
 import App from '../ducks/App/Reducer.js';
 import Payment from '../ducks/Payment/Reducer.js';
 import Template from '../ducks/Template/Reducer.js';
@@ -12,7 +12,7 @@ import Task from '../ducks/Task/Reducer.js';
 const RootReducer = combineReducers({
 	Template,
 	Instance,
-	User,
+	// User,
 	Payment,
 	Socket,
 	Task,

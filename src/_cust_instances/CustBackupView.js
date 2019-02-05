@@ -23,7 +23,7 @@ class CustBackupView extends Component{
     componentDidMount(){
         console.log(this.props.data)
         const params = {fields:[], filters:{instance_id:this.props.data.instance_id}}
-        Axios.post('http://localhost:9000/backup/select/open', params).then( resp => {
+        Axios.post('http://localhost:8000/backup/select/open', params).then( resp => {
             console.log(resp.data)
             this.setState({backups:resp.data})
         })
