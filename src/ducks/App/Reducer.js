@@ -2,13 +2,16 @@ import {types} from './Actions';
 import {Map} from 'immutable';
 import Cookies from 'js-cookie';
 let initialState = (() => {
-	let state = Cookies.get('app');
+	let state = Cookies.getJSON('app');
+	console.log(state)
 	if(state == undefined)
 		state = { 
 			logged_in:false,
 			user:null,
 			user_type:null
 		}
+	state.request_status = 'NONE';
+	state.request_message = '';
 	return Map(state);
 })();
 
@@ -21,6 +24,7 @@ export default function (state = initialState, action){
 		let state = {logged_in:false, user:null, user_type:null}
 		return Map(state);
 	}
+	case(types.)
 	default:
 		return state;
 	}

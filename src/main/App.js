@@ -9,32 +9,45 @@ import * as app_actions from '../ducks/App/Actions';
 import CustomerHome from '../_cust/Home.js';
 import CustomerLogin from '../_cust/Login.js';
 
-// const PrivateRoute = ({component: Component, authenticated, ...props}) => {
-// 	return (
-// 		<Route {...props}
-// 			render={(props) => authenticated === true ? 
-// 				<Component {...props} />
-// 				:<Redirect to={{pathname: '/login', state: {from: props.location}}} />} />
-// 	);
-// };
 
-// const PublicRoute = ({component: Component, authenticated, ...props}) => {
-// 	return (
-// 		<Route {...props} render={(props) => authenticated === false ? 
-// 			<Component {...props} />
-// 			: <Redirect to='/home' />} />
-// 	);
-// };
-
-const CustomerRoute = ({ component, app, ...props }) => {
+const CustomerRoute = ({ component:Component, app, ...props }) => {
 	return (
 		<Route {...props} render={(props) => {
-			return (app.logged_in == true && app.user_type == 'customer') ?
-				<Component {...props} /> : <Redirect to='/login' />
+			return (app.getIn(['logged_in']) == true && app.getIn(['user_type']) == 'customer') ?
+				<Component {...props} /> : <Redirect to='/customer/login' />
 		}} />
 
 	)
 }
+const CustomerDefault = ({ component:Component, app, ...props }) => {
+	return (
+		<Route {...props} render={(props) => {
+			return (app.getIn(['logged_in']) == true && app.getIn(['user_type']) == 'customer') ?
+				<Redirect to='/customer/home' /> : <Component {...props} /> 
+		}} />
+
+	)
+}
+
+const AdminRoute = ({ component:Component, app, ...props }) => {
+	return (
+		<Route {...props} render={(props) => {
+			return (app.getIn(['logged_in']) == true && app.getIn(['user_type']) == 'admin') ?
+				<Component {...props} /> : <Redirect to='/admin/login' />
+		}} />
+
+	)
+}
+const AdminDefault = ({ component:Component, app, ...props }) => {
+	return (
+		<Route {...props} render={(props) => {
+			return (app.getIn(['logged_in']) == true && app.getIn(['user_type']) == 'admin') ?
+				<Redirect to='/admin/home' /> : <Component {...props} /> 
+		}} />
+
+	)
+}
+
 
 
 class App extends Component {
@@ -46,8 +59,10 @@ class App extends Component {
 		return (
 			<BrowserRouter>
 				<div>
-					<Route path='/login' component={CustomerLogin} />
-					<CustomerRoute path='/home' app={this.props.app} component={CustomerHome} />
+					{/* <Route path='/login' component={CustomerLogin} /> */}
+					<Route exact={true} path='/' render = {()=>(<Redirect to={'/customer/login'}/>)} />
+					<CustomerDefault path='/customer/login' app={this.props.app} component={CustomerLogin}/>
+					<CustomerRoute path='/customer/home' app={this.props.app} component={CustomerHome} />
 					{/* <Route path='/admin' component={ AdminHome } />					 */}
 				</div>
 			</BrowserRouter>
