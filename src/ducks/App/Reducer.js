@@ -24,7 +24,7 @@ export default function (state = initialState, action){
 		let state = {logged_in:false, user:null, user_type:null}
 		return Map(state);
 	}
-	case(types.)
+	// case(types.)
 	default:
 		return state;
 	}

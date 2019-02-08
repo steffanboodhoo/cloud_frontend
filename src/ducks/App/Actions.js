@@ -44,9 +44,11 @@ export const log_in = (credentials, user_type) => {
 
 export const log_out = () => {
 	return dispatch => {
-		axios.post(SERVER+'/logout').then( resp => {
-			console.log(resp.data)
-
+		axios.get(SERVER+'/logout').then( resp => {
+			Cookies.remove('app');
+			return {
+				type: LOG_OUT
+			}
 		})
 	}
 }

@@ -1,20 +1,21 @@
 //Main Imports -- functionality
 import React,{Component} from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import * as UserActions from '../ducks/User/Actions.js';
+
+import * as app_actions from '../ducks/App/Actions';
+
+import ViewInstances from '../_cust_instances/ViewInstances.js';
 import CreateInstance from '../_create_instance/CreateInstance';
-import ViewPayments from '../_tracking/_payments/ViewPayments';
+// import ViewPayments from '../_tracking/_payments/ViewPayments';
 import Operations from '../_operations/Operations';
 import './home.css';
-import ViewInstances from '../_cust_instances/ViewInstances.js';
+
 
 class CustomerHome extends Component{
 	constructor(props){
 		super(props);
+		console.log(this.props)
 		this.state = {
 			current_view:'MY_INSTANCES',
 			nav:null,
@@ -39,7 +40,7 @@ class CustomerHome extends Component{
 				</nav>
 				
 
-				<ul id="slide-out" className="sidenav" onClick={this.handle_nav_select}>
+				<ul id="cust-nav-slide-out" className="sidenav" onClick={this.handle_nav_select}>
 					<li>
 						<div className="user-view">
 							<div className="background">
@@ -55,12 +56,12 @@ class CustomerHome extends Component{
 
 					<li><div className="divider"></div></li>
 					<li><a className="subheader">Account</a></li>
+					<li><a data-view='LOGOUT' className="waves-effect" href="#!">Logout</a></li>
 					<li><a data-view='ACCOUNT' className="waves-effect" href="#!">Account</a></li>
 					<li><a data-view='BILLING' className="waves-effect" href="#!">Billing</a></li>
 				</ul>
 
 				<div>
-					{/* <CreateInstance/> */}
 					{this.state.view_map[this.state.current_view]}
 					
 				</div>
@@ -69,21 +70,23 @@ class CustomerHome extends Component{
 		);
 	}
 	handle_nav_select = (ev) => {
-		console.log(ev.target.getAttribute('data-view'))
-		this.setState({current_view:ev.target.getAttribute('data-view')})
+		if(ev.target.getAttribute('data-view')=='LOGOUT'){
+			this.props.app_actions.log_out();
+		}else{
+			this.setState({current_view:ev.target.getAttribute('data-view')})
+		}
 		this.state.nav.close()
 	}
 	componentDidMount(){
-		// document.addEventListener('DOMContentLoaded', ()=>{
-		const elem = document.querySelectorAll('.sidenav')[0];
-		const instance = M.Sidenav.init(elem, {});
+		const instance = M.Sidenav.init(document.getElementById('cust-nav-slide-out'), {});
 		this.setState({nav:instance})
 		instance.open();
-		//   });
+
 		document.getElementById('sidenav_cust_trigger').addEventListener('click', e => {
 			instance.open();
 		});
 	}
 }
-
-export default CustomerHome;
+const mapStateToProps = (state) => ({});
+const mapActionsToProps = (dispatch) => {return {app_actions:bindActionCreators(app_actions, dispatch)}}
+export default connect(mapStateToProps, mapActionsToProps)(CustomerHome);
