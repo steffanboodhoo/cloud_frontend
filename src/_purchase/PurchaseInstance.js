@@ -22,45 +22,47 @@ class PurchaseTemplate extends Component{
     render(){
         return( 
             <div className="row">
+                <form>
                 <div className="col m6">
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input id="card_number" type="text" className="validate"/>
-                        <label htmlFor="card_number">Card Number</label>
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <input id="card_number" type="text" className="validate"/>
+                            <label htmlFor="card_number">Card Number</label>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input id="card_exp_date" type="text" className="datepicker"/>
-                        <label htmlFor="card_exp_date">Card Expiry Date</label>
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <input id="card_exp_date" type="text" className="datepicker"/>
+                            <label htmlFor="card_exp_date">Card Expiry Date</label>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="input-field col s6">
+                            <input id="card_cvv" type="number" className="validate"/>
+                            <label htmlFor="card_cvv">Card CVV</label>
+                        </div>
+
+                        <div className="input-field col s6">
+                            <select id='currency'>
+                            <option value="840" >USD</option>
+                            <option value="780">TTD</option>
+                            <option value="124" >CAD</option>
+                            <option value="978" >EUR</option>
+                            </select>
+                            <label>Currency</label>
+                        </div>
+                    </div>
+                    
+                    <div className='row'>
+                        <button className="waves-effect waves-light btn-large" onClick={handle_purchase_submit}><i className="material-icons right">send</i>purchase</button>
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="input-field col s6">
-                        <input id="card_cvv" type="number" className="validate"/>
-                        <label htmlFor="card_cvv">Card CVV</label>
-                    </div>
-
-                    <div className="input-field col s6">
-                        <select id='currency'>
-                        <option value="840" >USD</option>
-                        <option value="780">TTD</option>
-                        <option value="124" >CAD</option>
-                        <option value="978" >EUR</option>
-                        </select>
-                        <label>Currency</label>
-                    </div>
-                </div>
-                
-                <div className='row'>
-                <button className="waves-effect waves-light btn-large" onClick={getData}><i className="material-icons right">send</i>purchase</button>
-                </div>
-                </div>
                 <div className="col m6">
                     <TemplateItem {...template.get_selected_template(this.props)}/>
                 </div>
-                
+                </form>                
             </div>
         );
     }
@@ -79,7 +81,8 @@ const mapStateToProps = (state) =>{
 const mapActionsToProps = (dispatch) =>{
 	return {template_actions:bindActionCreators(template_actions,dispatch)};
 };
-const getData = () => {
+const handle_purchase_submit = (ev) => {
+    ev.preventDefault();
     const card_number = document.getElementById('card_number').value
     const card_exp_date = document.getElementById('card_exp_date').value
     const card_cvv = document.getElementById('card_cvv').value

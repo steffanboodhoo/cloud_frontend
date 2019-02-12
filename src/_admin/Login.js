@@ -31,7 +31,7 @@ class AdminLogin extends Component {
     handle_login = () => {
         const ad_username = document.getElementById('ad_username').value;
         const password = document.getElementById('password').value;
-        this.props.app_actions.log_in({ad_username, password}, 'admin')
+        this.props.app_actions.log_in({ad_username, password}, 'admin', this.props.history.push)
     }
 }
 

@@ -10,14 +10,14 @@ const LOG_OUT = 'APP/LOG_OUT';
 export const types = {LOG_IN, LOG_OUT};
 
 //Can either be 'customer' or 'admin
-export const log_in = (credentials, user_type) => {
+export const log_in = (credentials, user_type, push) => {
 	console.log(history)
 	//REQUEST STATUS CHANGES
 	const log_in_status_pending = (dispatch)=>{ dispatch(update_request_status(REQUEST_STATUS.PENDING, REQUEST_NAME.LOG_IN));}
 	const log_in_status_success = (dispatch)=>{ dispatch(update_request_status(REQUEST_STATUS.SUCCESS, REQUEST_NAME.LOG_IN));}
 	const log_in_status_fail = (dispatch)=>{ dispatch(update_request_status(REQUEST_STATUS.FAIL, REQUEST_NAME.LOG_IN));}
 	const log_in_status_error = (dispatch)=>{ dispatch(update_request_status(REQUEST_STATUS.ERROR, REQUEST_NAME.LOG_IN));}
-
+	
 	return dispatch => {
 		//set app state's request to pending then send post 
 		log_in_status_pending(dispatch);
@@ -32,6 +32,8 @@ export const log_in = (credentials, user_type) => {
 					type:LOG_IN,
 					payload:{app_state}
 				})
+				push( (user_type=='customer')? '/home':'/admin' )
+					
 				// history.push
 			}
 		//handle any other response code than 2xx
@@ -46,26 +48,18 @@ export const log_in = (credentials, user_type) => {
 			
 		})
 	}
-	
+	// this.
 }
 
-export const log_out = () => {
+
+export const log_out = (user_type, push) => {
 	return dispatch => {
 		axios.get(SERVER+'/logout').then( resp => {
 			Cookies.remove('app');
-			return {
+			dispatch ({
 				type: LOG_OUT
-			}
+			})
+			push( (user_type=='customer')? '/customerLogin':'/adminLogin' )
 		})
 	}
 }
-// export const admin_log_in = (credentials) => {
-// 	return dispatch => {
-// 		axios.post(SERVER + '/authenticate/customer').then( resp => {
-// 			console.log(resp.data)
-// 			if( resp.data.status == 'success'){
-
-// 			}
-// 		})
-// 	}
-// }

@@ -69,7 +69,7 @@ class AdminHome extends Component{
 	}
 	handle_nav_select = (ev) => {
 		if(ev.target.getAttribute('data-view')=='LOGOUT'){
-			this.props.app_actions.log_out();
+			this.props.app_actions.log_out('admin', this.props.history.push);
 		}else{
 			this.setState({current_view:ev.target.getAttribute('data-view')})
 		}
