@@ -12,26 +12,29 @@ class AdminLogin extends Component {
     render() {
         return (<div>
             <h1>Admin Portal</h1>
+            <form>
             <div className="row">
                 <div className="input-field col s12">
-                    <input id="ad_username" type="text" className="validate" />
-                    <label htmlFor="ad_username">Active Directory Username</label>
+                    <input id="username" type="text" className="validate" />
+                    <label htmlFor="username">Active Directory Username</label>
                 </div>
             </div>
             <div className="row">
                 <div className="input-field col s12">
-                    <input id="password" type="text" className="validate" />
+                    <input id="password" type="password" className="validate" />
                     <label htmlFor="password">Password</label>
                 </div>
             </div>
             <button onClick={this.handle_login}>Submit</button>
+            </form>
         </div>)
     }
 
-    handle_login = () => {
-        const ad_username = document.getElementById('ad_username').value;
+    handle_login = (ev) => {
+        ev.preventDefault();
+        const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        this.props.app_actions.log_in({ad_username, password}, 'admin', this.props.history.push)
+        this.props.app_actions.log_in({username, password}, 'admin', this.props.history.push)
     }
 }
 

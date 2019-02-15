@@ -55,8 +55,15 @@ class PurchaseTemplate extends Component{
                     </div>
                     
                     <div className='row'>
-                        <button className="waves-effect waves-light btn-large" onClick={handle_purchase_submit}><i className="material-icons right">send</i>purchase</button>
+                    <div className="input-field col s12">
+                            <input id="months" type="number" defaultValue='1' className="validate"/>
+                            <label className='active' htmlFor="months">Number of months</label>
+                        </div>
                     </div>
+                    <div className='row'>
+                        <button className="waves-effect waves-light btn-large" onClick={this.handle_purchase_submit}><i className="material-icons right">send</i>purchase</button>
+                    </div>
+
                 </div>
 
                 <div className="col m6">
@@ -74,20 +81,29 @@ class PurchaseTemplate extends Component{
         elem = document.querySelectorAll('select')[0];
         const select_instance = M.FormSelect.init(elem,{});
     }
+
+    handle_purchase_submit = (ev) => {
+        ev.preventDefault();
+        
+        const card_number = document.getElementById('card_number').value
+        const card_exp_date = document.getElementById('card_exp_date').value
+        const card_cvv = document.getElementById('card_cvv').value
+        const currency = document.getElementById('currency').value
+        const payment = {card_number, card_exp_date, card_cvv, currency}
+
+        const template_id = template.get_selected_template(this.props).template_id
+        const months = document.getElementById('months').value;
+        const request = {template_id, months}
+        console.log(params);
+    }
 }
+
+
 const mapStateToProps = (state) =>{
 	return {template:state.Template};
 };
 const mapActionsToProps = (dispatch) =>{
 	return {template_actions:bindActionCreators(template_actions,dispatch)};
 };
-const handle_purchase_submit = (ev) => {
-    ev.preventDefault();
-    const card_number = document.getElementById('card_number').value
-    const card_exp_date = document.getElementById('card_exp_date').value
-    const card_cvv = document.getElementById('card_cvv').value
-    const currency = document.getElementById('currency').value
-    const params = {card_number, card_exp_date, card_cvv, currency}
-    console.log(params);
-}
+
 export default connect(mapStateToProps,mapActionsToProps)(PurchaseTemplate);
