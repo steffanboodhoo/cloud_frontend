@@ -44,7 +44,7 @@ class InstanceView extends Component{
     }
 
     init_graph_process = () => {
-        let url = 'http://localhost:8000/hour_metric/select/open'
+        let url = 'http://localhost:8000/hour_metric/select/closed'
         const filters = {'instance_id': this.props.data.instance_id} 
         const params = {fields:[], filters};
         Axios.post(url, params).then( resp => {

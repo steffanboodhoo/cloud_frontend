@@ -4,8 +4,7 @@ export const UPDATE_REQUEST_MESSAGE = 'REQUEST_STATUS/UPDATE_REQUEST_MESSAGE';
 export const types = {UPDATE_REQUEST_STATUS, UPDATE_REQUEST_MESSAGE};
 
 export const update_request_status = (STATUS, NAME, message=null) => {
-    console.log(STATUS)
-    console.log(NAME)
+    console.log(STATUS+' '+NAME)
     return {
         type: UPDATE_REQUEST_STATUS,
         payload: {status:STATUS, name:NAME, message}
@@ -37,7 +36,9 @@ export const REQUEST_STATUS = {NONE, PENDING, FAIL, ERROR, SUCCESS};
 //REQUEST NAMES
 const LOG_IN = 'REQUEST_STATUS/LOG_IN';
 const LOGOUT = 'REQUEST_STATUS/LOGOUT';
-export const REQUEST_NAME = {LOG_IN, LOGOUT};
+const REQUEST_INSTANCE = 'REQUEST_STATUS/REQUEST_INSTANCE';
+const REGISTER = 'REQUEST_STATUS/REGISTER';
+export const REQUEST_NAME = {LOG_IN, LOGOUT, REQUEST_INSTANCE, REGISTER};
 
 
 

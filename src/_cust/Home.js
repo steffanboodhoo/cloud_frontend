@@ -7,7 +7,7 @@ import * as app_actions from '../ducks/App/Actions';
 
 import ViewInstances from '../_cust_instances/ViewInstances.js';
 import CreateInstance from '../_create_instance/CreateInstance';
-// import ViewPayments from '../_tracking/_payments/ViewPayments';
+import ViewPayments from '../_tracking/_payments/ViewPayments';
 import Operations from '../_operations/Operations';
 import './home.css';
 
@@ -21,7 +21,7 @@ class CustomerHome extends Component{
 			nav:null,
 			view_map:{
 				MY_INSTANCES:<ViewInstances/>,
-				OPERATION:<Operations/>,
+				VIEW_PAYMENTS:<ViewPayments/>,
 				CREATE_INSTANCE:<CreateInstance/>
 			}
 		}
@@ -46,13 +46,13 @@ class CustomerHome extends Component{
 							<div className="background">
 								<img src="https://www.raydarhealth.com/wp-content/uploads/2015/07/cloud-tech-computers-e1443730291360-1.png"/>
 							</div>
-							<a href="#name"><span className="white-text name">Steffan Boodhoo</span></a>
-							<a href="#email"><span className="white-text email">boodhoo100@gmail.com</span></a>
+							{/* <a href="#name"><span className="white-text name">Steffan Boodhoo</span></a> */}
+							<a href="#email"><span className="white-text email">{this.props.app.getIn(['user']).email}</span></a>
 						</div>
 					</li>
 					<li><a data-view='MY_INSTANCES' href="#!" className="waves-effect"><i className="material-icons">cloud</i>My Instances</a></li>
-					<li><a data-view='CREATE_INSTANCE' href="#!" className="waves-effect"><i className="material-icons">add_circle</i>Create Instance</a></li>
-					<li><a data-view='OPERATION' href="#!" className="waves-effect"><i className="material-icons">build</i>Operations</a></li>
+					<li><a data-view='VIEW_PAYMENTS' href="#!" className="waves-effect"><i className="material-icons">list</i>View Payments</a></li>
+					<li><a data-view='CREATE_INSTANCE' href="#!" className="waves-effect"><i className="material-icons">add_circle</i>Request Instance</a></li>
 
 					<li><div className="divider"></div></li>
 					<li><a className="subheader">Account</a></li>
@@ -87,6 +87,6 @@ class CustomerHome extends Component{
 		});
 	}
 }
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({app: state.App});
 const mapActionsToProps = (dispatch) => {return {app_actions:bindActionCreators(app_actions, dispatch)}}
 export default connect(mapStateToProps, mapActionsToProps)(CustomerHome);

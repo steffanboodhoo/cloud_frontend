@@ -5,13 +5,13 @@ import { bindActionCreators } from 'redux';
 
 import * as app_actions from '../ducks/App/Actions';
 
-
+import Register from '../_register/Register';
 import CustomerHome from '../_cust/Home.js';
 import CustomerLogin from '../_cust/Login.js';
 import AdminHome from '../_admin/Home';
 import AdminLogin from '../_admin/Login';
 
-const CustomerRoute = ({ component:Component, app, ...props }) => {
+const CustomerRoute = ({ component: Component, app, ...props }) => {
 	return (
 		<Route {...props} render={(props) => {
 			return (app.getIn(['logged_in']) == true && app.getIn(['user_type']) == 'customer') ?
@@ -20,17 +20,17 @@ const CustomerRoute = ({ component:Component, app, ...props }) => {
 
 	)
 }
-const CustomerDefault = ({ component:Component, app, ...props }) => {
+const CustomerDefault = ({ component: Component, app, ...props }) => {
 	return (
 		<Route {...props} render={(props) => {
 			return (app.getIn(['logged_in']) == true && app.getIn(['user_type']) == 'customer') ?
-				<Redirect to='/home' /> : <Component {...props} /> 
+				<Redirect to='/home' /> : <Component {...props} />
 		}} />
 
 	)
 }
 
-const AdminRoute = ({ component:Component, app, ...props }) => {
+const AdminRoute = ({ component: Component, app, ...props }) => {
 	return (
 		<Route {...props} render={(props) => {
 			return (app.getIn(['logged_in']) == true && app.getIn(['user_type']) == 'admin') ?
@@ -39,11 +39,11 @@ const AdminRoute = ({ component:Component, app, ...props }) => {
 
 	)
 }
-const AdminDefault = ({ component:Component, app, ...props }) => {
+const AdminDefault = ({ component: Component, app, ...props }) => {
 	return (
 		<Route {...props} render={(props) => {
 			return (app.getIn(['logged_in']) == true && app.getIn(['user_type']) == 'admin') ?
-				<Redirect to='/admin' /> : <Component {...props} /> 
+				<Redirect to='/admin' /> : <Component {...props} />
 		}} />
 
 	)
@@ -60,15 +60,17 @@ class App extends Component {
 		return (
 			<BrowserRouter>
 				<div>
-					<Route exact={true} path='/' render = { () => {
+					<Route exact={true} path='/' render={() => {
 						return (this.props.app.getIn(['user_type']) == 'admin') ?
-							(<Redirect to={'/admin'}/>) :(<Redirect to={'/home'}/>)}
+							(<Redirect to={'/admin'} />) : (<Redirect to={'/home'} />)
+					}
 					} />
+					<Route path='/register' render={() => <Register/>} />
 					<CustomerDefault path='/customerLogin' app={this.props.app} component={CustomerLogin}/>
 					<CustomerRoute path='/home' app={this.props.app} component={CustomerHome} />
 
-					<AdminRoute path='/admin' app={this.props.app} component={AdminHome}/>
-					<AdminDefault path='/adminLogin' app={this.props.app} component={AdminLogin}/>
+					<AdminRoute path='/admin' app={this.props.app} component={AdminHome} />
+					<AdminDefault path='/adminLogin' app={this.props.app} component={AdminLogin} />
 				</div>
 			</BrowserRouter>
 		);

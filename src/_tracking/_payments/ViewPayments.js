@@ -8,21 +8,46 @@ import PaymentItem from './PaymentItem';
 class ViewPayment extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            payments: []
+        }
     }
 
     render(){
         return(
             <div>
-            {this.props.payment.getIn(['payments']).map( (el, i) => {
+                <input type='text' onChange={this.handle_on_change} placeholder='Enter Order number, machine name or date'/>
+                <div className='row'>
+                    <div className='col s4'>Order Number</div>
+                    <div className='col ss'>Status</div>
+                    <div className='col s2'>Amount</div>
+                    <div className='col s2'>Machine Name</div>
+                    <div className='col s2'>Date</div>
+                </div>
+            {this.state.payments.map( (el, i) => {
                 // return <div key={i}> {el.date}</div>
                 return <PaymentItem key={i} payment={el}/>
             })}
             </div>
         );
     }
+    handle_on_change = (ev) => {
+        let payments = this.props.payment.getIn(['payments']);
+        const search = ev.target.value;
+        if(search != '')
+            payments = payments.filter( el => el.search_str.includes(search))
+        this.setState({payments})
+    }
 
     componentDidMount(){
-        this.props.payment_actions.get_payments();
+        if(this.props.payment.getIn(['payments']).length==0){
+            this.props.payment_actions.get_payments()
+        }else{
+            this.setState({payments:this.props.payment.getIn(['payments'])})
+        }
+    }
+    componentWillReceiveProps(nextProps){
+        this.setState({payments:nextProps.payment.getIn(['payments'])})
     }
 }
 

@@ -9,23 +9,26 @@ const LOG_IN = 'APP/LOG_IN';
 const LOG_OUT = 'APP/LOG_OUT';
 export const types = {LOG_IN, LOG_OUT};
 
+const status_pending = (dispatch, name)=>{ dispatch(update_request_status(REQUEST_STATUS.PENDING, name));}
+const status_success = (dispatch, name)=>{ dispatch(update_request_status(REQUEST_STATUS.SUCCESS, name));}
+const status_fail = (dispatch, name)=>{ dispatch(update_request_status(REQUEST_STATUS.FAIL, name));}
+const status_error = (dispatch, name)=>{ dispatch(update_request_status(REQUEST_STATUS.ERROR, name));}
+
 //Can either be 'customer' or 'admin
 export const log_in = (credentials, user_type, push) => {
 	console.log(history)
 	//REQUEST STATUS CHANGES
-	const log_in_status_pending = (dispatch)=>{ dispatch(update_request_status(REQUEST_STATUS.PENDING, REQUEST_NAME.LOG_IN));}
-	const log_in_status_success = (dispatch)=>{ dispatch(update_request_status(REQUEST_STATUS.SUCCESS, REQUEST_NAME.LOG_IN));}
-	const log_in_status_fail = (dispatch)=>{ dispatch(update_request_status(REQUEST_STATUS.FAIL, REQUEST_NAME.LOG_IN));}
-	const log_in_status_error = (dispatch)=>{ dispatch(update_request_status(REQUEST_STATUS.ERROR, REQUEST_NAME.LOG_IN));}
+
 	
 	return dispatch => {
 		//set app state's request to pending then send post 
-		log_in_status_pending(dispatch);
+		status_pending(dispatch, REQUEST_NAME.LOG_IN);
 		axios.post(SERVER+'/authenticate/'+user_type, credentials)
 		//capture successful response 2xx
 		.then( resp => {
+			console.log(resp)
 			if( resp.data.status == 'success'){
-				log_in_status_success(dispatch)
+				status_success(dispatch, REQUEST_NAME.LOG_IN)
 				let app_state = {logged_in:true, user:resp.data.user, user_type:user_type}
 				Cookies.set('app', app_state)
 				dispatch({
@@ -35,15 +38,17 @@ export const log_in = (credentials, user_type, push) => {
 				push( (user_type=='customer')? '/home':'/admin' )
 					
 				// history.push
+			}else{
+				console.log(resp)
 			}
 		//handle any other response code than 2xx
 		}).catch( error => {
 			// The request was made and the server responded with a status code
 			if(error.response){
-				log_in_status_fail(dispatch)
+				status_fail(dispatch, REQUEST_NAME.LOG_IN)
 			//everything else
 			}else{
-				log_in_status_error(dispatch)
+				status_error(dispatch, REQUEST_NAME.LOG_IN)
 			}
 			
 		})
@@ -60,6 +65,29 @@ export const log_out = (user_type, push) => {
 				type: LOG_OUT
 			})
 			push( (user_type=='customer')? '/customerLogin':'/adminLogin' )
+		})
+	}
+}
+
+export const register  = ( details , push) => {
+	return dispatch => {
+		status_pending(dispatch, REQUEST_NAME.REGISTER)
+		axios.post( SERVER+'/customer/create',details)
+		.then( resp => {
+			console.log(resp);
+			if(resp.data.status == 'success'){
+				status_success(dispatch, REQUEST_NAME.REGISTER)
+				//do things here
+				push('/')
+			}else{
+				status_fail(dispatch, REQUEST_NAME.REGISTER)
+			}
+		}).catch( err => {
+			if(err.response){
+				status_fail(dispatch, REQUEST_NAME.REGISTER)
+			}else{
+				status_error(dispatch, REQUEST_NAME.REGISTER)
+			}
 		})
 	}
 }

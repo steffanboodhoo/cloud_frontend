@@ -40,8 +40,7 @@ class ViewInstances extends Component{
     }
 
     componentDidMount(){
-        const filters = {status:'running'}
-        this.props.instance_actions.get_instances(filters, []);
+        this.props.instance_actions.get_running_instances()
     }
 
     handle_select_instance = (data) => {
