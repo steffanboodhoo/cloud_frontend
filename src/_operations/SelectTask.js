@@ -54,7 +54,6 @@ class SelectTask extends Component{
 		const filtered = this.props.task.getIn(['tasks']).filter( el => {
             const text = ev.target.value.toLowerCase();
             return el.task_name.toLowerCase().includes(text) && el.target_type==this.props.target_type;
-            //||el.description.toLowerCase().includes(text)||text=='';
 		});
 		this.setState({filtered_tasks:filtered});
     }

@@ -13,7 +13,7 @@ class CustBackupView extends Component{
 
     render(){
         return(<div>
-            <h4>Details</h4>
+            <h4>Backups</h4>
             {this.state.backups.map( (el, i) => {
                 return (<this.backup_item key={i} data={el}/>)
             })}
@@ -23,7 +23,7 @@ class CustBackupView extends Component{
     componentDidMount(){
         console.log(this.props.data)
         const params = {fields:[], filters:{instance_id:this.props.data.instance_id}}
-        Axios.post('http://localhost:8000/backup/select/open', params).then( resp => {
+        Axios.post('http://localhost:8000/backup/select/closed', params).then( resp => {
             console.log(resp.data)
             this.setState({backups:resp.data})
         })

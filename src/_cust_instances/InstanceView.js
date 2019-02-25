@@ -3,9 +3,11 @@ import Chart from 'chart.js';
 import Axios from 'axios';
 import CustOperations from './CustOperations';
 import CustBackupView from './CustBackupView';
+import CustInstancePayment from './CustInstancePayment';
 class InstanceView extends Component{
     constructor(props){
         super(props);
+        console.log(props)
     }
 
     render(){
@@ -19,16 +21,15 @@ class InstanceView extends Component{
             </div>
 
             <div className='row'>
-                <div id='machine-details' className='col s4 z-depth-1'>
-                    <h4>Details</h4>
+                {/* <div id='machine-details' className='col s4 z-depth-1'>
+                    <CustInstancePayment data={this.props.data}/>
+                </div> */}
 
-                </div>
-
-                <div id='cust-operations' className='col s4 z-depth-1'>
+                <div id='cust-operations' className='col s7 z-depth-1'>
                     <CustOperations data={this.props.data}/>
                 </div>
 
-                <div id='backups-view' className='col s4 z-depth-1'>
+                <div id='backups-view' className='col s5 z-depth-1'>
                     <CustBackupView data={this.props.data}/>
                 <div>
 

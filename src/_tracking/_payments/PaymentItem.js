@@ -1,6 +1,5 @@
 import React from 'react';
 const PaymentItem = ({payment}) => {
-    console.log(payment)
     return (
         <div className='row'>
             <div className='col s4'>

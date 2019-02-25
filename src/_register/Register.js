@@ -34,7 +34,7 @@ class Register extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <button onClick={this.handle_register}>Submit</button>
+                    <button className='waves-effect waves-light btn-large' onClick={this.handle_register}>Submit</button>
                 </div>
             </form>
             <div className="row">
@@ -49,7 +49,7 @@ class Register extends Component {
         const password = document.getElementById('password').value;
         const password_verify = document.getElementById('password_verify').value;
         const email = document.getElementById('email').value;
-        // if ( check_password(password, password_verify) && check_email(email) )
+        
         this.setState({input_error:null})
         let error = this.check_email(email) || this.check_password(password, password_verify);
         if (error)

@@ -40,7 +40,9 @@ export const get_instances = (filters={}, fields=[]) => {
 	const params = {fields, filters};
 	return dispatch => {
 		Axios.post('http://localhost:8000/instance/select/closed', params).then( resp => {
+			resp.data.forEach( el => el.machine_name = el.machine_name?el.machine_name:'unassigned')
 			const metrics = init_metric(resp.data);
+			console.log(metrics)
 			dispatch({
 				type: INIT_METRICS,
 				payload: metrics
@@ -61,7 +63,8 @@ const init_metric = (instances) => {
 	instances.forEach( elem => {
 		const cpu = '--', memory = '--', storage = {db:'--', files:'--'};
 		metrics[elem.machine_name] = {cpu, memory, storage};
-		listen_machine({'machine_name':elem.machine_name});
+		if(elem.machine_name!=null&&elem.machine_name!='unassigned')
+			listen_machine({'machine_name':elem.machine_name});
 	});
 	return metrics;
 	

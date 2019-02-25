@@ -7,6 +7,7 @@ import * as app_actions from '../ducks/App/Actions';
 
 // import ViewPayments from '../_tracking/_payments/ViewPayments';
 import Operations from '../_operations/Operations';
+import AdminInstances from '../_admin_instances/AdminInstances';
 import './home.css';
 
 
@@ -18,10 +19,11 @@ class AdminHome extends Component{
 		//- ADMIN INSTANCES - A view of all active instances with an indicator of health, this view is to allow an admin to find out more information about a machine such as IP or how the system views it health-wise( will not have live statistics or anything too much processing at once)
 		//- OVERVIEW - A list of issues created by the machines (e.g. httpd error, low disk space), and a list of issues from customers
 		this.state = {
-			current_view:'OPERATION',
+			current_view:'ADMIN_INSTANCES',
 			nav:null,
 			view_map:{
-				OPERATION:<Operations/>
+				OPERATION:<Operations/>,
+				ADMIN_INSTANCES:<AdminInstances/>
 			}
 		}
 	}
@@ -49,7 +51,7 @@ class AdminHome extends Component{
 							<a href="#email"><span className="white-text email">boodhoo100@gmail.com</span></a>
 						</div>
 					</li>
-					<li><a data-view='OVERVIEW' href="#!" className="waves-effect"><i className="material-icons">cloud</i>Overview</a></li>
+					{/* <li><a data-view='OVERVIEW' href="#!" className="waves-effect"><i className="material-icons">cloud</i>Overview</a></li> */}
 					<li><a data-view='OPERATION' href="#!" className="waves-effect"><i className="material-icons">build</i>Operations</a></li>
 					<li><a data-view='ADMIN_INSTANCES' href="#!" className="waves-effect"><i className="material-icons">add_circle</i>All Instances</a></li>
 					
