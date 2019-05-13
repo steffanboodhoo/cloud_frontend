@@ -36,6 +36,26 @@ export const request_instance = (params) => {
 	}
 }
 
+export const renew_instance = (params) => {
+	return dispatch => {
+		Axios.post('http://localhost:8000/instance/renew', params).then( resp =>{
+			console.log(resp)
+			if(resp.data.status == 'success'){
+				request_instance_status_success(dispatch);
+			}else{
+				request_instance_status_fail(dispatch)
+			}
+		}).catch( err => {
+			// The request was made and the server responded with a status code
+			if(error.response){
+				request_instance_status_fail(dispatch)
+			//everything else
+			}else{
+				request_instance_status_error(dispatch)
+			}
+		})
+	}
+}
 export const get_instances = (filters={}, fields=[]) => {
 	const params = {fields, filters};
 	return dispatch => {
