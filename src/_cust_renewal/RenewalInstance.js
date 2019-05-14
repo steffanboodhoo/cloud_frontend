@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+import * as instance_actions from '../ducks/Instance/Actions';
+
 import CreditCardPurchase from '../common/CreditCardPurchase';
 
 class RenewalInstance extends Component {
+    constructor(props){
+        super(props);
+    }
     render() {
         return (
             <div className="row">
@@ -35,18 +41,22 @@ class RenewalInstance extends Component {
                     </div>
                 </div>
                 <div className='row'>
-                    <CreditCardPurchase handle_submit={this.handle_submit} />
+                    <CreditCardPurchase handle_submit={this.handle_submit.bind(this)} />
                 </div>
             </div>
         )
     }
 
-    handle_submit(payment_data) {
+    handle_submit(payment) {
         const months = document.getElementById('months').value;
-        console.log(payment_data)
+        const request = {instance_id:this.props.selected_instance.instance_id, months}
+        console.log(request);
+        const params = {request, payment}        
+        this.props.instance_actions.renew_instance(params);
     }
 }
 
 const mapStateToProps = (state) => ({});
-const mapActionsToProps = (dispatch) => ({});
+const mapActionsToProps = (dispatch) => ({instance_actions:bindActionCreators(instance_actions,dispatch)});
+
 export default connect(mapStateToProps, mapActionsToProps)(RenewalInstance);
