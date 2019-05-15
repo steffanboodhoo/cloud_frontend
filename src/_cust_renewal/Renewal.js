@@ -2,43 +2,47 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import RenewalInstance from './RenewalInstance';
 import * as instance_actions from '../ducks/Instance/Actions';
-// import * as instance_actions from '../ducks/Instance/Actions';
+import InstancesView from './InstancesView';
+import InstanceRenewal from './InstanceRenewal';
+
+
 class Renewal extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            selected_instance : null
+            selected_instance: null
         }
     }
+
     render() {
         console.log(this.props.instance.getIn(['instances']))
-        return (<div>
-            <div className='col s3'>
-                {this.props.instance.getIn(['instances']).map((el, i) => {
-                    return (<div className='row' key={i} onClick={()=>{this.select_instance(el)}}>
-                        {el.machine_name}
-                    </div>)
-                })}
+        return (<div className='row'>
+            <div className='col s7'>
+                <InstancesView instances={this.props.instance.getIn(['instances'])} handle_select_instance={this.handle_select_instance}/>
             </div>
-            <div className='col s9'>
-                <RenewalInstance selected_instance={this.state.selected_instance}/>
+            <div className='col s5'>
+                <InstanceRenewal handle_submit_payment={this.handle_submit_payment.bind(this)}/>
             </div>
         </div>);
     }
-    select_instance = (el) => {
-        this.setState({selected_instance:el})
-        // console.log(this.state)
+
+    handle_select_instance = (el) => {
+        this.setState({ selected_instance: el })
+        console.log(el)
+    }
+    handle_submit_payment(request, payment) {
+        request['instance_id'] = this.state.selected_instance.instance_id;
+        const params = { request, payment }
+        this.props.instance_actions.renew_instance(params);
     }
 
     componentDidMount() {
         if (this.props.instance.getIn(['instances']).length == 0)
             instance_actions.get_instances();
-
     }
 }
 
 const mapStateToProps = (state) => ({ instance: state.Instance })
 const mapActionsToProps = (dispatch) => ({ instance_actions: bindActionCreators(instance_actions, dispatch) })
-export default connect(mapStateToProps,mapActionsToProps)(Renewal);
+export default connect(mapStateToProps, mapActionsToProps)(Renewal);
