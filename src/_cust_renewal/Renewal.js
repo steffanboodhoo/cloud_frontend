@@ -18,10 +18,10 @@ class Renewal extends Component {
     render() {
         console.log(this.props.instance.getIn(['instances']))
         return (<div className='row'>
-            <div className='col s7'>
+            <div className='col s7 container'>
                 <InstancesView instances={this.props.instance.getIn(['instances'])} handle_select_instance={this.handle_select_instance}/>
             </div>
-            <div className='col s5'>
+            <div className='col s5 container'>
                 <InstanceRenewal handle_submit_payment={this.handle_submit_payment.bind(this)}/>
             </div>
         </div>);
