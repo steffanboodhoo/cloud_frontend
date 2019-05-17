@@ -43,7 +43,8 @@ class InstancesView extends Component {
     }
 
     instanceItem(el, i) {
-        return (<div className='row z-depth-1 waves-effect hoverable' key={i} onClick={() => { this.props.handle_select_instance(el) }}>
+        const id = this.props.selected_instance!=null?this.props.selected_instance.instance_id:-1;
+        return (<div className={`row z-depth-1 waves-effect hoverable ${el.instance_id==id?'selected':''}`} key={i} onClick={() => { this.props.handle_select_instance(el) }}>
             <div className='col s3'>{el.machine_name} </div>
             <div className='col s3'> {el.status} </div>
             <div className='col s6'>expiration: {el.expiration_date} </div>

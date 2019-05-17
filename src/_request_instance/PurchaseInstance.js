@@ -1,5 +1,6 @@
 import React, { Component } from 'react';;
-import * as template from '../ducks/Template/Selector';
+
+import * as request_status from '../ducks/RequestStatus/Selectors';
 import { REQUEST_NAME, REQUEST_STATUS } from '../ducks/RequestStatus/Actions';
 
 import TemplateItem from '../common/TemplateItem';
@@ -65,7 +66,7 @@ class PurchaseTemplate extends Component {
         colour[REQUEST_STATUS.FAIL] = 'red'
         colour[REQUEST_STATUS.SUCCESS] = 'green'
 
-        if ((this.props.request_status.getIn(['name']) == REQUEST_NAME.REQUEST_INSTANCE && this.props.request_status.getIn(['status']) != ''))
+        if ((request_status.get_name(this.props) == REQUEST_NAME.REQUEST_INSTANCE && request_status.get_status(this.props) != ''))
             return (<div className={`card-panel ${(this.props.request_status.getIn(['status']) == REQUEST_STATUS.NONE) ? 'hidden' : 'visible'}  ${colour[this.props.request_status.getIn(['status'])]}`} >
                 {this.props.request_status.getIn(['status'])}
             </div>);

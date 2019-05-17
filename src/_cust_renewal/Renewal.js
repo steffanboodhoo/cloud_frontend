@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import * as instance_actions from '../ducks/Instance/Actions';
 import InstancesView from './InstancesView';
 import InstanceRenewal from './InstanceRenewal';
-
+import './renewal.css'
 
 class Renewal extends Component {
     constructor(props) {
@@ -19,7 +19,7 @@ class Renewal extends Component {
         console.log(this.props.instance.getIn(['instances']))
         return (<div className='row'>
             <div className='col s7 container'>
-                <InstancesView instances={this.props.instance.getIn(['instances'])} handle_select_instance={this.handle_select_instance}/>
+                <InstancesView instances={this.props.instance.getIn(['instances'])} handle_select_instance={this.handle_select_instance} selected_instance={this.state.selected_instance}/>
             </div>
             <div className='col s5 container'>
                 <InstanceRenewal handle_submit_payment={this.handle_submit_payment.bind(this)}/>
