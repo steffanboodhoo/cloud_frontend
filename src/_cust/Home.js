@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import * as app_actions from '../ducks/App/Actions';
 
 import ViewInstances from '../_cust_instances/ViewInstances.js';
-import CreateInstance from '../_create_instance/CreateInstance';
+import RequestInstance from '../_request_instance/RequestInstance';
 import ViewPayments from '../_tracking/_payments/ViewPayments';
 import Renewal from '../_cust_renewal/Renewal';
 
@@ -23,7 +23,7 @@ class CustomerHome extends Component{
 			view_map:{
 				MY_INSTANCES:<ViewInstances/>,
 				VIEW_PAYMENTS:<ViewPayments/>,
-				CREATE_INSTANCE:<CreateInstance/>,
+				REQUEST_INSTANCE:<RequestInstance/>,
 				RENEWAL:<Renewal/>
 			}
 		}
@@ -54,7 +54,7 @@ class CustomerHome extends Component{
 					</li>
 					<li><a data-view='MY_INSTANCES' href="#!" className="waves-effect"><i className="material-icons">cloud</i>My Instances</a></li>
 					<li><a data-view='VIEW_PAYMENTS' href="#!" className="waves-effect"><i className="material-icons">list</i>View Payments</a></li>
-					<li><a data-view='CREATE_INSTANCE' href="#!" className="waves-effect"><i className="material-icons">add_circle</i>Request Instance</a></li>
+					<li><a data-view='REQUEST_INSTANCE' href="#!" className="waves-effect"><i className="material-icons">add_circle</i>Request Instance</a></li>
 					<li><a data-view='RENEWAL' href="#!" className="waves-effect"><i className="material-icons">attach_money</i>Renew Instance</a></li>
 
 					<li><div className="divider"></div></li>

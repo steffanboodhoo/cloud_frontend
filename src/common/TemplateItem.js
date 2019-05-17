@@ -10,15 +10,15 @@ class TemplateItem extends Component {
                 <div className="col s12">
                     <div className="card blue-grey darken-1">
                         <div className="card-content white-text">
-                            <span className="card-title">{this.props.display_name}</span>
-                            <p>Memory: {this.props.memory}MB</p>
-                            <p>Storage: {this.props.storage}GB</p>
-                            <p>CPU count: {this.props.cpus}</p>
-                            <p>Monthly Rate: ${this.props.monthly_rate}TT</p>
+                            <span className="card-title">{this.props.template.display_name}</span>
+                            <p>Memory: {this.props.template.memory}MB</p>
+                            <p>Storage: {this.props.template.storage}GB</p>
+                            <p>CPU count: {this.props.template.cpus}</p>
+                            <p>Monthly Rate: ${this.props.template.monthly_rate}TT</p>
                         </div>
                         <div className="card-action">
-                            { ('selectTemplate' in this.props)?
-                                <a href="#" onClick={()=>{this.props.selectTemplate(this.props.template_id)}} >Purchase</a>:''
+                            { ('select_template' in this.props)?
+                                <a href="#" onClick={()=>{this.props.select_template(this.props.template)}} >Purchase</a>:''
                             }
                             <ul className="collapsible card-action-custom">
                                 <li>
