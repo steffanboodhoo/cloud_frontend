@@ -9,7 +9,7 @@ import ViewInstances from '../_cust_instances/ViewInstances.js';
 import RequestInstance from '../_request_instance/RequestInstance';
 import ViewPayments from '../_tracking/_payments/ViewPayments';
 import Renewal from '../_cust_renewal/Renewal';
-
+import FeatureTest from '../_feature_test/FeatureTest';
 import './home.css';
 
 
@@ -18,13 +18,14 @@ class CustomerHome extends Component{
 		super(props);
 		console.log(this.props)
 		this.state = {
-			current_view:'MY_INSTANCES',
+			current_view:'FEATURE_TEST',
 			nav:null,
 			view_map:{
 				MY_INSTANCES:<ViewInstances/>,
 				VIEW_PAYMENTS:<ViewPayments/>,
 				REQUEST_INSTANCE:<RequestInstance/>,
-				RENEWAL:<Renewal/>
+				RENEWAL:<Renewal/>,
+				FEATURE_TEST:<FeatureTest/>
 			}
 		}
 	}
@@ -56,6 +57,7 @@ class CustomerHome extends Component{
 					<li><a data-view='VIEW_PAYMENTS' href="#!" className="waves-effect"><i className="material-icons">list</i>View Payments</a></li>
 					<li><a data-view='REQUEST_INSTANCE' href="#!" className="waves-effect"><i className="material-icons">add_circle</i>Request Instance</a></li>
 					<li><a data-view='RENEWAL' href="#!" className="waves-effect"><i className="material-icons">attach_money</i>Renew Instance</a></li>
+					<li><a data-view='FEATURE_TEST' href="#!" className="waves-effect"><i className="material-icons">report</i>Feature Test</a></li>
 
 					<li><div className="divider"></div></li>
 					<li><a className="subheader">Account</a></li>

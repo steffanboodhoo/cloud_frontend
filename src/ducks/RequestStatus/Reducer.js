@@ -2,7 +2,7 @@ import {Map} from 'immutable';
 import {types} from './Actions';
 
 const initial_state = Map({
-    status:'',
+    status:'REQUEST_STATUS/NONE',
     name:'',
     message:''
 })
